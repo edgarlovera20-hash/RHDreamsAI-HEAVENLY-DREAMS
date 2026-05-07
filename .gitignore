@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+dist.tar.gz
+*.tsbuildinfo
+
+# Coverage / tests
+coverage/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Environment
+.env*
+!.env.example
+
+# Local data (SQLite, WhatsApp sessions, etc.)
+server/data/
+
+# Python helper scripts cache
+scripts/__pycache__/
+*.pyc
+
+# Claude Code session metadata
+.claude/
+.antigravity/
