@@ -1,22 +1,56 @@
 // ----- Auth token storage + 401 handling -----
 
 export const TOKEN_STORAGE_KEY = 'rhdreams.token';
+export const REMEMBERED_EMAIL_KEY = 'rhdreams.rememberedEmail';
 
-let cachedToken: string | null =
-  typeof window !== 'undefined' ? window.localStorage.getItem(TOKEN_STORAGE_KEY) : null;
+function readStoredToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return (
+    window.localStorage.getItem(TOKEN_STORAGE_KEY) ||
+    window.sessionStorage.getItem(TOKEN_STORAGE_KEY)
+  );
+}
+
+let cachedToken: string | null = readStoredToken();
 
 const unauthorizedListeners = new Set<() => void>();
 
-export function setAuthToken(token: string | null) {
+/**
+ * Save the JWT.
+ *  - `persist = true` → localStorage (survives browser restart).
+ *  - `persist = false` → sessionStorage (cleared when the tab/window closes).
+ *  - `token = null` clears both stores.
+ */
+export function setAuthToken(token: string | null, persist = true) {
   cachedToken = token;
-  if (typeof window !== 'undefined') {
-    if (token) window.localStorage.setItem(TOKEN_STORAGE_KEY, token);
-    else window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+  if (typeof window === 'undefined') return;
+  if (token) {
+    if (persist) {
+      window.localStorage.setItem(TOKEN_STORAGE_KEY, token);
+      window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
+    } else {
+      window.sessionStorage.setItem(TOKEN_STORAGE_KEY, token);
+      window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+    }
+  } else {
+    window.localStorage.removeItem(TOKEN_STORAGE_KEY);
+    window.sessionStorage.removeItem(TOKEN_STORAGE_KEY);
   }
 }
 
 export function getAuthToken(): string | null {
   return cachedToken;
+}
+
+export function getRememberedEmail(): string {
+  if (typeof window === 'undefined') return '';
+  return window.localStorage.getItem(REMEMBERED_EMAIL_KEY) || '';
+}
+
+export function setRememberedEmail(email: string | null) {
+  if (typeof window === 'undefined') return;
+  if (email) window.localStorage.setItem(REMEMBERED_EMAIL_KEY, email);
+  else window.localStorage.removeItem(REMEMBERED_EMAIL_KEY);
 }
 
 export function onUnauthorized(cb: () => void): () => void {
@@ -375,6 +409,39 @@ export const api = {
       body: JSON.stringify({ agentName }),
     });
   },
+
+  // ----- Passkeys (WebAuthn) -----
+
+  async passkeyRegisterOptions(): Promise<any> {
+    return request('/api/auth/passkey/register/options', { method: 'POST', body: '{}' });
+  },
+
+  async passkeyRegisterVerify(payload: { registration: any; nickname?: string }): Promise<{ ok: true }> {
+    return request('/api/auth/passkey/register/verify', { method: 'POST', body: JSON.stringify(payload) });
+  },
+
+  async passkeyLoginOptions(email?: string): Promise<any> {
+    return request('/api/auth/passkey/login/options', { method: 'POST', body: JSON.stringify({ email }) });
+  },
+
+  async passkeyLoginVerify(payload: { response: any; email?: string }): Promise<{ user: AuthUser; token: string }> {
+    return request('/api/auth/passkey/login/verify', { method: 'POST', body: JSON.stringify(payload) });
+  },
+
+  async listPasskeys(): Promise<{ passkeys: Passkey[] }> {
+    return request('/api/auth/passkeys');
+  },
+
+  async deletePasskey(id: string): Promise<void> {
+    await request(`/api/auth/passkeys/${id}`, { method: 'DELETE' });
+  },
+};
+
+export type Passkey = {
+  id: string;
+  nickname: string | null;
+  createdAt: number;
+  lastUsedAt: number | null;
 };
 
 // ----- Extra public types for new features -----

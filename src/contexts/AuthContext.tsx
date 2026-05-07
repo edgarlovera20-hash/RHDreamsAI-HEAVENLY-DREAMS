@@ -5,8 +5,9 @@ type AuthState = {
   user: AuthUser | null;
   loading: boolean;
   needsBootstrap: boolean | null;
-  login: (email: string, password: string) => Promise<void>;
-  register: (email: string, name: string, password: string) => Promise<void>;
+  login: (email: string, password: string, persist?: boolean) => Promise<void>;
+  register: (email: string, name: string, password: string, persist?: boolean) => Promise<void>;
+  loginWithToken: (user: AuthUser, token: string, persist?: boolean) => void;
   logout: () => void;
   refreshBootstrapStatus: () => Promise<void>;
 };
@@ -55,19 +56,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [refreshBootstrapStatus]);
 
-  const login = useCallback(async (email: string, password: string) => {
+  const login = useCallback(async (email: string, password: string, persist = true) => {
     const { user, token } = await api.login(email, password);
-    setAuthToken(token);
+    setAuthToken(token, persist);
     setUser(user);
     await refreshBootstrapStatus();
   }, [refreshBootstrapStatus]);
 
-  const register = useCallback(async (email: string, name: string, password: string) => {
+  const register = useCallback(async (email: string, name: string, password: string, persist = true) => {
     const { user, token } = await api.register(email, name, password);
-    setAuthToken(token);
+    setAuthToken(token, persist);
     setUser(user);
     await refreshBootstrapStatus();
   }, [refreshBootstrapStatus]);
+
+  const loginWithToken = useCallback((user: AuthUser, token: string, persist = true) => {
+    setAuthToken(token, persist);
+    setUser(user);
+  }, []);
 
   const logout = useCallback(() => {
     setAuthToken(null);
@@ -75,7 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, needsBootstrap, login, register, logout, refreshBootstrapStatus }}>
+    <AuthContext.Provider value={{ user, loading, needsBootstrap, login, register, loginWithToken, logout, refreshBootstrapStatus }}>
       {children}
     </AuthContext.Provider>
   );

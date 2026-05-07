@@ -1,6 +1,14 @@
 import { Router } from 'express';
 import db, { UserRow } from './db.js';
 import { hashPassword, verifyPassword, signToken, requireAuth, AuthedRequest, userCount, findUserByEmail } from './auth.js';
+import {
+  buildRegistrationOptions,
+  verifyRegistration,
+  buildAuthenticationOptions,
+  verifyAuthentication,
+  listPasskeys,
+  deletePasskey,
+} from './passkeys.js';
 
 const router = Router();
 
@@ -61,6 +69,58 @@ router.post('/login', async (req, res) => {
 
 router.get('/me', requireAuth, (req: AuthedRequest, res) => {
   res.json({ user: req.user });
+});
+
+// ---------- Passkeys (WebAuthn) ----------
+
+// Registration: caller must already be authenticated.
+router.post('/passkey/register/options', requireAuth, async (req: AuthedRequest, res) => {
+  if (!req.user) return res.status(401).json({ error: 'No autenticado' });
+  const userRow = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id) as UserRow | undefined;
+  if (!userRow) return res.status(404).json({ error: 'Usuario no encontrado' });
+  const options = await buildRegistrationOptions(userRow);
+  res.json(options);
+});
+
+router.post('/passkey/register/verify', requireAuth, async (req: AuthedRequest, res) => {
+  if (!req.user) return res.status(401).json({ error: 'No autenticado' });
+  const userRow = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id) as UserRow | undefined;
+  if (!userRow) return res.status(404).json({ error: 'Usuario no encontrado' });
+  const { registration, nickname } = req.body || {};
+  if (!registration) return res.status(400).json({ error: 'registration requerido' });
+  const result = await verifyRegistration(userRow, registration, nickname);
+  if (!result.ok) return res.status(400).json({ error: result.error });
+  res.json({ ok: true });
+});
+
+router.get('/passkeys', requireAuth, (req: AuthedRequest, res) => {
+  if (!req.user) return res.status(401).json({ error: 'No autenticado' });
+  res.json({ passkeys: listPasskeys(req.user.id) });
+});
+
+router.delete('/passkeys/:id', requireAuth, (req: AuthedRequest, res) => {
+  if (!req.user) return res.status(401).json({ error: 'No autenticado' });
+  if (!deletePasskey(req.user.id, req.params.id)) {
+    return res.status(404).json({ error: 'Passkey no encontrada' });
+  }
+  res.json({ ok: true });
+});
+
+// Authentication: public — anyone with a registered key can present it.
+router.post('/passkey/login/options', async (req, res) => {
+  const { email } = req.body || {};
+  const { options } = await buildAuthenticationOptions(typeof email === 'string' ? email : undefined);
+  res.json(options);
+});
+
+router.post('/passkey/login/verify', async (req, res) => {
+  const { response, email } = req.body || {};
+  if (!response) return res.status(400).json({ error: 'response requerido' });
+  const result = await verifyAuthentication(response, typeof email === 'string' ? email : undefined);
+  if (!result.ok) return res.status(401).json({ error: result.error });
+  const pub = { id: result.user.id, email: result.user.email, name: result.user.name, role: result.user.role };
+  const token = signToken(pub);
+  res.json({ user: pub, token });
 });
 
 export default router;

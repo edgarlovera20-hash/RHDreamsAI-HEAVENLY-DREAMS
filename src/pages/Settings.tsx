@@ -8,6 +8,7 @@ import { ProvidersPanel } from "@/components/ProvidersPanel";
 import { MetaProvidersPanel } from "@/components/MetaProvidersPanel";
 import { ApiKeysPanel } from "@/components/ApiKeysPanel";
 import { IntegrationsPanel } from "@/components/IntegrationsPanel";
+import { PasskeysPanel } from "@/components/PasskeysPanel";
 
 const ROLES = [
   { id: 'admin', name: 'Administrador', description: 'Acceso total al sistema, reportes y facturación.' },
@@ -525,6 +526,8 @@ export function Settings() {
                         </div>
                      </div>
                    </div>
+
+                   <PasskeysPanel />
 
                    <div className="glass-panel rounded-xl overflow-hidden border border-white/10 p-5">
                       <div className="flex items-center gap-2 mb-4">

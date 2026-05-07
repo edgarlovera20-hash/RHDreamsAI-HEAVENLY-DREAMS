@@ -122,6 +122,19 @@ db.exec(`
     last_triggered_at INTEGER,
     last_error TEXT
   );
+
+  CREATE TABLE IF NOT EXISTS passkeys (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    credential_id TEXT NOT NULL UNIQUE,
+    public_key TEXT NOT NULL,
+    counter INTEGER NOT NULL DEFAULT 0,
+    transports TEXT,
+    nickname TEXT,
+    created_at INTEGER NOT NULL,
+    last_used_at INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
 `);
 
 // Lightweight migration: add capabilities column to existing agents and templates if missing.
@@ -294,6 +307,18 @@ export type IntegrationRow = {
   created_at: number;
   last_triggered_at: number | null;
   last_error: string | null;
+};
+
+export type PasskeyRow = {
+  id: string;
+  user_id: string;
+  credential_id: string;
+  public_key: string;
+  counter: number;
+  transports: string | null;
+  nickname: string | null;
+  created_at: number;
+  last_used_at: number | null;
 };
 
 // Seed a curated set of specialized agent templates the first time the table is empty.
