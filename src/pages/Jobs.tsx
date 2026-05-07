@@ -29,7 +29,7 @@ export function Jobs() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="page-enter flex flex-col gap-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-white mt-2">Ofertas de Empleo</h1>
@@ -37,7 +37,7 @@ export function Jobs() {
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white px-4 py-2.5 rounded-lg font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)] hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+          className="bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white px-4 py-2.5 rounded-lg font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)] hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]">
           <Plus className="w-4 h-4" />
           Nueva Oferta
         </button>
@@ -61,11 +61,11 @@ export function Jobs() {
           <div key={job.id} className="glass-panel glass-panel-hover rounded-2xl flex flex-col p-6 group">
             <div className="flex justify-between items-start mb-5">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center shrink-0 border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0 border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
                   <Briefcase className="w-6 h-6 opacity-80" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white line-clamp-1 group-hover:text-cyan-300 transition-colors">{job.title}</h3>
+                  <h3 className="font-semibold text-white line-clamp-1 group-hover:text-blue-300 transition-colors">{job.title}</h3>
                   <p className="text-sm text-slate-400 mt-0.5">{job.department}</p>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export function Jobs() {
                   </div>
                 </div>
                 {job.status === 'Active' && (
-                  <button className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors">
+                  <button className="p-2 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
                     <Share2 className="w-4 h-4" />
                   </button>
                 )}
@@ -127,8 +127,8 @@ export function Jobs() {
             >
               <X className="w-5 h-5" />
             </button>
-            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 mb-6 flex items-center gap-2">
-               <Briefcase className="w-6 h-6 text-cyan-400" />
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500 mb-6 flex items-center gap-2">
+               <Briefcase className="w-6 h-6 text-blue-400" />
                Nueva Oferta
             </h2>
             
@@ -139,7 +139,7 @@ export function Jobs() {
                   type="text" 
                   value={newJob.title}
                   onChange={(e) => setNewJob({...newJob, title: e.target.value})}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                   placeholder="Ej: Backend Developer"
                 />
               </div>
@@ -151,7 +151,7 @@ export function Jobs() {
                     type="text" 
                     value={newJob.department}
                     onChange={(e) => setNewJob({...newJob, department: e.target.value})}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                     placeholder="Ej: Engineering"
                   />
                 </div>
@@ -161,7 +161,7 @@ export function Jobs() {
                     type="text" 
                     value={newJob.location}
                     onChange={(e) => setNewJob({...newJob, location: e.target.value})}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                     placeholder="Ej: Remote, Spain"
                   />
                 </div>
@@ -172,7 +172,7 @@ export function Jobs() {
                 <select 
                   value={newJob.status}
                   onChange={(e) => setNewJob({...newJob, status: e.target.value})}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all appearance-none"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none"
                 >
                   <option value="Draft">Borrador</option>
                   <option value="Active">Activa</option>
@@ -190,7 +190,7 @@ export function Jobs() {
               <button 
                 onClick={handleCreateJob}
                 disabled={!newJob.title || !newJob.department || !newJob.location}
-                className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold px-6 py-2 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold px-6 py-2 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(96,165,250,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Crear Oferta
               </button>

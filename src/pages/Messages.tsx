@@ -56,7 +56,7 @@ export function Messages() {
   const activeCandidate = MOCK_CANDIDATES.find(c => c.id === activeChat.candidateId);
 
   return (
-    <div className="flex h-[calc(100vh-6rem)] gap-4 overflow-hidden">
+    <div className="page-enter flex h-[calc(100vh-6rem)] gap-4 overflow-hidden">
       
       {/* Conversations List (Left) */}
       <div className={cn(
@@ -65,8 +65,8 @@ export function Messages() {
       )}>
         <div className="p-4 border-b border-white/5 space-y-4 shrink-0">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">Mensajes</h2>
-            <button className="bg-cyan-500/10 text-cyan-400 hover:bg-cyan-500/20 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors border border-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)]">
+            <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500">Mensajes</h2>
+            <button className="bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors border border-blue-500/20 shadow-[0_0_10px_rgba(59,130,246,0.1)]">
               Nuevo
             </button>
           </div>
@@ -76,15 +76,15 @@ export function Messages() {
             <input 
               type="text" 
               placeholder="Buscar conversaciones..." 
-              className="w-full bg-slate-800/50 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all font-medium"
+              className="w-full bg-slate-800/50 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-medium"
             />
-            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-cyan-400 transition-colors">
+            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-400 transition-colors">
               <Filter className="w-4 h-4" />
             </button>
           </div>
 
           <div className="flex gap-2 overflow-x-auto pb-1 styled-scrollbar">
-            <button className="whitespace-nowrap px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-semibold border border-cyan-500/30">Todos</button>
+            <button className="whitespace-nowrap px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-semibold border border-blue-500/30">Todos</button>
             <button className="whitespace-nowrap px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">WhatsApp</button>
             <button className="whitespace-nowrap px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 text-xs font-medium border border-pink-500/20">Instagram</button>
             <button className="whitespace-nowrap px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-medium border border-blue-500/20">Messenger</button>
@@ -98,7 +98,7 @@ export function Messages() {
               onClick={() => { setActiveChat(chat); setIsSidebarOpen(false); }}
               className={cn(
                 "p-4 cursor-pointer transition-all border-b border-white/5 hover:bg-white/5 flex gap-3 relative",
-                activeChat.id === chat.id ? "bg-cyan-500/5 border-l-2 border-l-cyan-500" : "border-l-2 border-l-transparent"
+                activeChat.id === chat.id ? "bg-blue-500/5 border-l-2 border-l-blue-500" : "border-l-2 border-l-transparent"
               )}
             >
               <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold shrink-0 shadow-lg relative", chat.avatarColor)}>
@@ -111,7 +111,7 @@ export function Messages() {
               </div>
               <div className="flex-1 min-w-0 flex flex-col justify-center">
                 <div className="flex justify-between items-baseline mb-1">
-                  <span className={cn("font-semibold truncate", activeChat.id === chat.id ? "text-cyan-400" : "text-white")}>
+                  <span className={cn("font-semibold truncate", activeChat.id === chat.id ? "text-blue-400" : "text-white")}>
                     {chat.name}
                   </span>
                   <span className="text-xs text-slate-500 shrink-0 ml-2">{chat.lastMessageTime}</span>
@@ -174,7 +174,7 @@ export function Messages() {
                 <div className={cn(
                   "p-3 rounded-2xl shadow-sm text-sm relative group",
                   msg.sender === 'me' 
-                    ? "bg-cyan-600 text-white rounded-tr-sm shadow-cyan-900/20" 
+                    ? "bg-blue-600 text-white rounded-tr-sm shadow-blue-900/20" 
                     : "bg-slate-800 border border-slate-700 text-slate-200 rounded-tl-sm shadow-black/20"
                 )}>
                   {msg.text}
@@ -192,8 +192,8 @@ export function Messages() {
 
         {/* Message Input Area */}
         <div className="p-4 bg-slate-900/80 backdrop-blur-md border-t border-white/5 shrink-0 rounded-b-2xl">
-          <div className="flex items-end gap-2 bg-slate-950/50 p-2 rounded-2xl border border-slate-700/50 focus-within:border-cyan-500/50 focus-within:ring-1 focus-within:ring-cyan-500/30 transition-all shadow-inner">
-            <button className="p-2.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-800 rounded-xl transition-all shrink-0 group">
+          <div className="flex items-end gap-2 bg-slate-950/50 p-2 rounded-2xl border border-slate-700/50 focus-within:border-blue-500/50 focus-within:ring-1 focus-within:ring-blue-500/30 transition-all shadow-inner">
+            <button className="p-2.5 text-slate-400 hover:text-blue-400 hover:bg-slate-800 rounded-xl transition-all shrink-0 group">
               <PlusCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </button>
             <div className="flex-1 min-h-[44px] relative">
@@ -214,12 +214,12 @@ export function Messages() {
                 }}
               />
             </div>
-            <button className="p-2.5 text-slate-400 hover:text-cyan-400 hover:bg-slate-800 rounded-xl transition-all shrink-0">
+            <button className="p-2.5 text-slate-400 hover:text-blue-400 hover:bg-slate-800 rounded-xl transition-all shrink-0">
               <Smile className="w-5 h-5" />
             </button>
             <button 
               disabled={!messageInput.trim()}
-              className="p-2.5 bg-cyan-500 text-slate-900 hover:bg-cyan-600 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] rounded-xl transition-all font-bold shrink-0 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed group"
+              className="p-2.5 bg-blue-500 text-slate-900 hover:bg-blue-600 hover:shadow-[0_0_15px_rgba(96,165,250,0.3)] rounded-xl transition-all font-bold shrink-0 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed group"
             >
               <Send className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
@@ -255,7 +255,7 @@ export function Messages() {
              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-white/5 pb-2">Información</h4>
              
              <div className="flex items-start gap-3">
-               <Briefcase className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" />
+               <Briefcase className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
                <div>
                   <p className="text-xs text-slate-400 mb-0.5">Posición de interés</p>
                   <p className="text-sm text-white font-medium">{activeCandidate?.role || 'No definida'}</p>

@@ -12,7 +12,7 @@ const getAlertColors = (type: string) => {
     case 'warning': return { bg: 'bg-amber-500/10', border: 'border-amber-500/30', text: 'text-amber-500', icon: AlertTriangle, gradient: 'from-amber-500/5' };
     case 'error': return { bg: 'bg-rose-500/10', border: 'border-rose-500/30', text: 'text-rose-500', icon: AlertCircle, gradient: 'from-rose-500/5' };
     case 'info':
-    default: return { bg: 'bg-cyan-500/10', border: 'border-cyan-500/30', text: 'text-cyan-500', icon: Info, gradient: 'from-cyan-500/5' };
+    default: return { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-500', icon: Info, gradient: 'from-blue-500/5' };
   }
 };
 
@@ -21,7 +21,7 @@ export function Dashboard() {
   const unreadAlerts = notifications.filter(n => !n.read).slice(0, 3); // Módulos de alerta en el dashboard
 
   return (
-    <div className="flex flex-col gap-6 w-full min-h-full pb-8">
+    <div className="page-enter flex flex-col gap-6 w-full min-h-full pb-8">
       {unreadAlerts.length > 0 && (
         <div className="flex flex-col gap-2">
           {unreadAlerts.map(alert => {
@@ -48,8 +48,8 @@ export function Dashboard() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mt-4 mb-6">
         <div>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-white flex items-center gap-3">
-             <Cpu className="w-8 h-8 text-cyan-400" />
-             Heavenly Dreams <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 font-bold ml-2">Metrics</span>
+             <Cpu className="w-8 h-8 text-blue-400" />
+             Heavenly Dreams <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500 font-bold ml-2">Metrics</span>
           </h1>
           <p className="text-slate-400 mt-2 font-light tracking-wide text-sm opacity-80 uppercase">Autonomous matching and conversion analysis</p>
         </div>
@@ -68,7 +68,7 @@ export function Dashboard() {
         ].map((stat, i) => {
           const Icon = stat.icon;
           const styles = {
-            cyan: { text: "text-cyan-400", bgLine: "via-cyan-500/40", shadow: "group-hover:drop-shadow-[0_0_12px_rgba(6,182,212,0.8)]", dot: "bg-cyan-400", hoverBorder: "hover:border-cyan-500/50" },
+            cyan: { text: "text-blue-400", bgLine: "via-blue-500/40", shadow: "group-hover:drop-shadow-[0_0_12px_rgba(59,130,246,0.8)]", dot: "bg-blue-400", hoverBorder: "hover:border-blue-500/50" },
             purple: { text: "text-purple-400", bgLine: "via-purple-500/40", shadow: "group-hover:drop-shadow-[0_0_12px_rgba(168,85,247,0.8)]", dot: "bg-purple-400", hoverBorder: "hover:border-purple-500/50" },
             emerald: { text: "text-emerald-400", bgLine: "via-emerald-500/40", shadow: "group-hover:drop-shadow-[0_0_12px_rgba(16,185,129,0.8)]", dot: "bg-emerald-400", hoverBorder: "hover:border-emerald-500/50" },
             rose: { text: "text-rose-400", bgLine: "via-rose-500/40", shadow: "group-hover:drop-shadow-[0_0_12px_rgba(244,63,94,0.8)]", dot: "bg-rose-400", hoverBorder: "hover:border-rose-500/50" },
@@ -96,10 +96,10 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
-        <div className="glass-panel p-8 rounded-2xl flex flex-col relative overflow-hidden group hover:border-cyan-500/30 transition-all duration-300">
-          <div className="absolute top-0 right-0 p-32 bg-cyan-500/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+        <div className="glass-panel p-8 rounded-2xl flex flex-col relative overflow-hidden group hover:border-blue-500/30 transition-all duration-300">
+          <div className="absolute top-0 right-0 p-32 bg-blue-500/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
           <h2 className="text-[11px] font-bold text-slate-400 mb-8 uppercase tracking-widest flex items-center gap-3">
-            <span className="w-2 h-2 bg-cyan-400 rounded-sm shadow-[0_0_8px_#22d3ee]"></span> Embudo y Tasa de Conversión (%)
+            <span className="w-2 h-2 bg-blue-400 rounded-sm shadow-[0_0_8px_#60a5fa]"></span> Embudo y Tasa de Conversión (%)
           </h2>
           <div className="h-[320px] w-full relative z-10">
             <ResponsiveContainer width="100%" height="100%">
@@ -109,13 +109,13 @@ export function Dashboard() {
                 <YAxis dataKey="stage" type="category" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 11, fontWeight: 600, fontFamily: 'Inter' }} />
                 <RechartsTooltip 
                   cursor={{ fill: 'rgba(255,255,255,0.02)' }}
-                  contentStyle={{ borderRadius: '12px', border: '1px solid rgba(6,182,212,0.3)', backgroundColor: 'rgba(15, 17, 21, 0.9)', color: '#e2e8f0', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(12px)', fontFamily: 'Inter', fontSize: '12px' }}
+                  contentStyle={{ borderRadius: '12px', border: '1px solid rgba(59,130,246,0.3)', backgroundColor: 'rgba(15, 17, 21, 0.9)', color: '#e2e8f0', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)', backdropFilter: 'blur(12px)', fontFamily: 'Inter', fontSize: '12px' }}
                 />
                 <Bar dataKey="count" fill="url(#cyanGradient)" radius={[0, 4, 4, 0]} barSize={24} name="Candidatos">
                   <defs>
                     <linearGradient id="cyanGradient" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stopColor="#0ea5e9" stopOpacity={0.6}/>
-                      <stop offset="100%" stopColor="#06b6d4" stopOpacity={1}/>
+                      <stop offset="100%" stopColor="#3b82f6" stopOpacity={1}/>
                     </linearGradient>
                   </defs>
                 </Bar>

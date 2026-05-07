@@ -6,7 +6,7 @@ import {
   BarChart, Bar, Legend, LineChart, Line, ComposedChart, PieChart as RechartsPieChart, Pie, Cell 
 } from 'recharts';
 
-const COLORS = ['#06b6d4', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e', '#64748b'];
+const COLORS = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#f43f5e', '#64748b'];
 
 export function Reports() {
   const handleExportCSV = () => {
@@ -43,11 +43,11 @@ export function Reports() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="page-enter flex flex-col gap-6">
       <div className="flex justify-between items-start">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight text-white flex items-center gap-2">
-            <PieChart className="w-6 h-6 text-cyan-400" />
+            <PieChart className="w-6 h-6 text-blue-400" />
             Reportes y Analíticas
           </h1>
           <p className="text-slate-400 text-sm font-light mt-1">
@@ -60,7 +60,7 @@ export function Reports() {
           </button>
           <button 
             onClick={handleExportCSV}
-            className="bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+            className="bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)]">
             Exportar CSV
           </button>
         </div>
@@ -69,7 +69,7 @@ export function Reports() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="glass-panel p-5 rounded-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <Users className="w-12 h-12 text-cyan-400" />
+            <Users className="w-12 h-12 text-blue-400" />
           </div>
           <p className="text-xs text-slate-400 uppercase tracking-widest font-bold mb-1">Time to Hire (Promedio)</p>
           <h3 className="text-3xl font-bold text-white mb-2">29 <span className="text-sm font-medium text-slate-500">días</span></h3>
@@ -103,7 +103,7 @@ export function Reports() {
         {/* Funnel Chart */}
         <div className="glass-panel p-5 rounded-2xl border border-white/5">
           <h3 className="text-sm font-bold text-white mb-6 uppercase tracking-widest flex items-center gap-2">
-            <Filter className="w-4 h-4 text-cyan-400" />
+            <Filter className="w-4 h-4 text-blue-400" />
             Embudo de Conversión
           </h3>
           <div className="h-[300px] w-full">
@@ -114,9 +114,9 @@ export function Reports() {
                 <YAxis dataKey="stage" type="category" stroke="#94a3b8" fontSize={11} width={90} />
                 <RechartsTooltip 
                   contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px', color: '#f8fafc' }}
-                  itemStyle={{ color: '#06b6d4' }}
+                  itemStyle={{ color: '#3b82f6' }}
                 />
-                <Bar dataKey="count" fill="#06b6d4" radius={[0, 4, 4, 0]} barSize={20}>
+                <Bar dataKey="count" fill="#3b82f6" radius={[0, 4, 4, 0]} barSize={20}>
                   {FUNNEL_DATA.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
@@ -144,7 +144,7 @@ export function Reports() {
                 />
                 <Legend wrapperStyle={{ fontSize: '12px' }} />
                 <Bar yAxisId="left" dataKey="hires" name="Contratados" fill="#8b5cf6" radius={[4, 4, 0, 0]} barSize={30} />
-                <Line yAxisId="right" type="monotone" dataKey="timeToHire" name="Tiempo (días)" stroke="#06b6d4" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+                <Line yAxisId="right" type="monotone" dataKey="timeToHire" name="Tiempo (días)" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
               </ComposedChart>
             </ResponsiveContainer>
           </div>

@@ -13,7 +13,7 @@ const getNotificationIcon = (type: string) => {
     case 'error': return <AlertCircle className="w-5 h-5 text-red-400" />;
     case 'info':
     default:
-      return <Info className="w-5 h-5 text-cyan-400" />;
+      return <Info className="w-5 h-5 text-blue-400" />;
   }
 };
 
@@ -45,11 +45,11 @@ export function NotificationsPopover({
       {/* Bell Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+        className="relative p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50"
       >
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
-          <span className="absolute top-1 right-1.5 flex h-4 w-4 shrink-0 translate-x-1/3 -translate-y-1/3 items-center justify-center rounded-full bg-cyan-500 text-[10px] font-bold text-white shadow-[0_0_8px_rgba(34,211,238,0.6)]">
+          <span className="absolute top-1 right-1.5 flex h-4 w-4 shrink-0 translate-x-1/3 -translate-y-1/3 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white shadow-[0_0_8px_rgba(96,165,250,0.6)]">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
@@ -74,7 +74,7 @@ export function NotificationsPopover({
               <div className="flex items-center gap-2">
                 <h3 className="font-semibold text-white">Notificaciones</h3>
                 {unreadCount > 0 && (
-                  <span className="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-medium border border-cyan-500/30">
+                  <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 text-xs font-medium border border-blue-500/30">
                     {unreadCount} nuevas
                   </span>
                 )}
@@ -83,7 +83,7 @@ export function NotificationsPopover({
                 {unreadCount > 0 && (
                   <button 
                     onClick={markAllAsRead}
-                    className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors group relative"
+                    className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors group relative"
                     title="Marcar todas como leídas"
                   >
                     <CheckCheck className="w-4 h-4" />
@@ -132,7 +132,7 @@ export function NotificationsPopover({
               <div className="p-2 border-t border-white/5 bg-slate-900/50">
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="w-full py-2 text-xs font-medium text-slate-400 hover:text-cyan-400 transition-colors text-center uppercase tracking-wider"
+                  className="w-full py-2 text-xs font-medium text-slate-400 hover:text-blue-400 transition-colors text-center uppercase tracking-wider"
                 >
                   Ver historial completo
                 </button>
@@ -170,11 +170,11 @@ function NotificationItem({ notification, onClose }: { notification: AppNotifica
         "relative p-3 rounded-xl border transition-all flex gap-3 group",
         notification.read 
           ? "bg-slate-900/40 border-transparent" 
-          : "bg-slate-800/80 border-cyan-500/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
+          : "bg-slate-800/80 border-blue-500/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
       )}
     >
       {!notification.read && (
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-cyan-500 rounded-r-md"></div>
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-500 rounded-r-md"></div>
       )}
       
       <div className="mt-1 shrink-0">
@@ -198,7 +198,7 @@ function NotificationItem({ notification, onClose }: { notification: AppNotifica
         {notification.actionUrl && (
           <button 
             onClick={handleActionClick}
-            className="mt-2 text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
+            className="mt-2 text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
           >
             {notification.actionLabel || 'Ver detalles'} <ArrowRight className="w-3 h-3" />
           </button>
@@ -209,7 +209,7 @@ function NotificationItem({ notification, onClose }: { notification: AppNotifica
         {!notification.read && (
           <button 
             onClick={() => markAsRead(notification.id)}
-            className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-md transition-colors"
+            className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-colors"
             title="Marcar como leída"
           >
             <Check className="w-3 h-3" />

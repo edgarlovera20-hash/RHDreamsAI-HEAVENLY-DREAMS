@@ -16,7 +16,7 @@ const INTEGRATION_TYPES: {
   { id: 'zapier', label: 'Zapier', description: 'Catch Hook de Zapier para disparar Zaps.', Icon: Zap, color: 'bg-amber-500/20 text-amber-300 border-amber-500/40', placeholder: 'https://hooks.zapier.com/hooks/catch/...' },
   { id: 'n8n', label: 'n8n', description: 'Webhook de un workflow de n8n.', Icon: Workflow, color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', placeholder: 'https://n8n.midominio.com/webhook/...' },
   { id: 'make', label: 'Make (Integromat)', description: 'Custom Webhook de un escenario de Make.', Icon: Workflow, color: 'bg-rose-500/20 text-rose-300 border-rose-500/40', placeholder: 'https://hook.eu1.make.com/...' },
-  { id: 'webhook', label: 'Webhook genérico', description: 'POST JSON a cualquier URL HTTPS.', Icon: Webhook, color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40', placeholder: 'https://api.midominio.com/eventos' },
+  { id: 'webhook', label: 'Webhook genérico', description: 'POST JSON a cualquier URL HTTPS.', Icon: Webhook, color: 'bg-blue-500/20 text-blue-300 border-blue-500/40', placeholder: 'https://api.midominio.com/eventos' },
 ];
 
 const ALL_EVENTS = [
@@ -152,7 +152,7 @@ export function IntegrationsPanel() {
       <div className="p-6 border-b border-white/5 flex justify-between items-center bg-slate-900/30">
         <div>
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <Webhook className="w-5 h-5 text-cyan-400" />
+            <Webhook className="w-5 h-5 text-blue-400" />
             Integraciones
           </h2>
           <p className="text-sm text-slate-400 font-light">
@@ -163,7 +163,7 @@ export function IntegrationsPanel() {
         {!showForm && (
           <button
             onClick={startCreate}
-            className="bg-cyan-500/20 border border-cyan-500/40 hover:bg-cyan-500/30 text-cyan-200 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all"
+            className="bg-blue-500/20 border border-blue-500/40 hover:bg-blue-500/30 text-blue-200 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all"
           >
             <Plus className="w-4 h-4" /> Nueva Integración
           </button>
@@ -188,10 +188,10 @@ export function IntegrationsPanel() {
           <>
             {items.length === 0 ? (
               <div className="glass-panel p-8 rounded-xl text-center">
-                <Webhook className="w-10 h-10 text-cyan-400/50 mx-auto mb-3" />
+                <Webhook className="w-10 h-10 text-blue-400/50 mx-auto mb-3" />
                 <h3 className="text-white font-semibold mb-1">Sin integraciones configuradas</h3>
                 <p className="text-sm text-slate-400 mb-4">Conecta una app externa para recibir eventos en tiempo real.</p>
-                <button onClick={startCreate} className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm">
+                <button onClick={startCreate} className="bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm">
                   Conectar primera app
                 </button>
               </div>
@@ -251,7 +251,7 @@ export function IntegrationsPanel() {
                         </button>
                         <button
                           onClick={() => toggleStatus(it)}
-                          className="text-xs px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-colors"
+                          className="text-xs px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                         >
                           {paused ? 'Activar' : 'Pausar'}
                         </button>
@@ -310,7 +310,7 @@ export function IntegrationsPanel() {
                   value={draft.name}
                   onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))}
                   placeholder="Ej: #reclutamiento (Slack)"
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
                 />
               </div>
 
@@ -321,7 +321,7 @@ export function IntegrationsPanel() {
                   value={draft.url}
                   onChange={(e) => setDraft((d) => ({ ...d, url: e.target.value }))}
                   placeholder={draftMeta.placeholder}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 font-mono"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
                 />
               </div>
 
@@ -334,7 +334,7 @@ export function IntegrationsPanel() {
                   value={draft.secret}
                   onChange={(e) => setDraft((d) => ({ ...d, secret: e.target.value }))}
                   placeholder="Se enviará en la cabecera X-RHDreams-Signature"
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 font-mono"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
                 />
               </div>
 
@@ -348,10 +348,10 @@ export function IntegrationsPanel() {
                         key={ev.id}
                         className={cn(
                           "flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-colors border",
-                          checked ? "bg-cyan-500/10 border-cyan-500/30" : "bg-slate-900/40 border-slate-700/50 hover:border-slate-600"
+                          checked ? "bg-blue-500/10 border-blue-500/30" : "bg-slate-900/40 border-slate-700/50 hover:border-slate-600"
                         )}
                       >
-                        <input type="checkbox" checked={checked} onChange={() => toggleEvent(ev.id)} className="accent-cyan-500" />
+                        <input type="checkbox" checked={checked} onChange={() => toggleEvent(ev.id)} className="accent-blue-500" />
                         <span className="text-sm text-slate-200">{ev.label}</span>
                         <code className="ml-auto text-[10px] text-slate-500 font-mono">{ev.id}</code>
                       </label>
@@ -368,7 +368,7 @@ export function IntegrationsPanel() {
               <button
                 onClick={submit}
                 disabled={submitting || !draft.name.trim() || !draft.url.trim()}
-                className="bg-cyan-500 text-slate-900 px-4 py-2 rounded-lg text-xs font-bold hover:bg-cyan-400 transition-colors flex items-center gap-2 disabled:opacity-50"
+                className="bg-blue-500 text-slate-900 px-4 py-2 rounded-lg text-xs font-bold hover:bg-blue-400 transition-colors flex items-center gap-2 disabled:opacity-50"
               >
                 {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
                 <CheckCircle2 className="w-4 h-4" />

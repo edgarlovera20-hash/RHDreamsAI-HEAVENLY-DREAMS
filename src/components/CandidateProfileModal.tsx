@@ -133,7 +133,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
         {/* Header */}
         <div className="flex items-start justify-between p-6 border-b border-white/10 bg-slate-900/30">
           <div className="flex items-center gap-5">
-            <div className="w-16 h-16 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl font-bold border border-cyan-500/20 shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+            <div className="w-16 h-16 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-2xl font-bold border border-blue-500/20 shrink-0 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
               {candidate.name.charAt(0)}
             </div>
             <div>
@@ -162,7 +162,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
               </div>
               <p className="text-slate-400 mt-1 font-light">{candidate.role}</p>
               <div className="flex items-center gap-3 mt-3">
-                <span className="px-2.5 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-[inset_0_0_8px_rgba(6,182,212,0.2)]">{candidate.stage}</span>
+                <span className="px-2.5 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-[inset_0_0_8px_rgba(59,130,246,0.2)]">{candidate.stage}</span>
                 <div className="flex items-center gap-1 text-xs text-slate-500">
                   <Clock className="w-3.5 h-3.5" /> Postulado hace 2 días
                 </div>
@@ -176,27 +176,27 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
 
         {/* Content Body */}
         <div className="flex flex-col md:flex-row flex-1 overflow-hidden relative">
-          <div className="absolute inset-0 bg-cyan-500/5 blur-3xl rounded-none pointer-events-none opacity-50"></div>
+          <div className="absolute inset-0 bg-blue-500/5 blur-3xl rounded-none pointer-events-none opacity-50"></div>
           
           {/* Left Column - Contact & Basics */}
           <div className="w-full md:w-1/3 bg-slate-900/40 p-6 border-r border-white/5 overflow-y-auto styled-scrollbar relative z-10">
-            <h3 className="text-xs uppercase tracking-widest font-bold text-cyan-500/80 mb-4">Información de Contacto</h3>
+            <h3 className="text-xs uppercase tracking-widest font-bold text-blue-500/80 mb-4">Información de Contacto</h3>
             
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg glass-panel flex items-center justify-center text-slate-400 shrink-0 border border-white/5">
-                  <Mail className="w-4 h-4 text-cyan-400/80" />
+                  <Mail className="w-4 h-4 text-blue-400/80" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-[10px] text-slate-500 uppercase font-semibold">Email</p>
-                  <a href={`mailto:${candidate.email}`} className="text-sm text-cyan-400 hover:underline truncate block">{candidate.email}</a>
+                  <a href={`mailto:${candidate.email}`} className="text-sm text-blue-400 hover:underline truncate block">{candidate.email}</a>
                 </div>
               </div>
 
               {candidate.phone && (
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg glass-panel flex items-center justify-center text-slate-400 shrink-0 border border-white/5">
-                    <Phone className="w-4 h-4 text-cyan-400/80" />
+                    <Phone className="w-4 h-4 text-blue-400/80" />
                   </div>
                   <div>
                     <p className="text-[10px] text-slate-500 uppercase font-semibold">Teléfono</p>
@@ -208,7 +208,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
               {candidate.location && (
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg glass-panel flex items-center justify-center text-slate-400 shrink-0 border border-white/5">
-                    <MapPin className="w-4 h-4 text-cyan-400/80" />
+                    <MapPin className="w-4 h-4 text-blue-400/80" />
                   </div>
                   <div>
                     <p className="text-[10px] text-slate-500 uppercase font-semibold">Ubicación</p>
@@ -220,7 +220,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
 
             <div className="h-px bg-white/5 my-6"></div>
 
-            <h3 className="text-xs uppercase tracking-widest font-bold text-cyan-500/80 mb-4">Enlaces y Redes</h3>
+            <h3 className="text-xs uppercase tracking-widest font-bold text-blue-500/80 mb-4">Enlaces y Redes</h3>
             <div className="space-y-3">
               {candidate.linkedin && (
                 <a href={`https://${candidate.linkedin}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors group">
@@ -236,7 +236,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
               )}
               {candidate.portfolio && (
                 <a href={`https://${candidate.portfolio}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors group">
-                  <Globe className="w-4 h-4 text-slate-400 group-hover:text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0)] group-hover:drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]" />
+                  <Globe className="w-4 h-4 text-slate-400 group-hover:text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0)] group-hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
                   <span className="text-sm text-slate-300 group-hover:text-white transition-colors font-light">{candidate.portfolio}</span>
                 </a>
               )}
@@ -255,11 +255,11 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                 onClick={() => setActiveTab('profile')}
                 className={cn(
                   "pb-3 text-sm font-medium transition-colors relative whitespace-nowrap", 
-                  activeTab === 'profile' ? "text-cyan-400" : "text-slate-400 hover:text-slate-300"
+                  activeTab === 'profile' ? "text-blue-400" : "text-slate-400 hover:text-slate-300"
                 )}
               >
                 Perfil y CV
-                {activeTab === 'profile' && <div className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-400 glowing-border shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>}
+                {activeTab === 'profile' && <div className="absolute bottom-0 left-0 w-full h-[2px] bg-blue-400 glowing-border shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>}
               </button>
               <button 
                 onClick={() => setActiveTab('scorecard')}
@@ -296,15 +296,15 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
             <div className="p-6 overflow-y-auto styled-scrollbar flex-1">
               {activeTab === 'profile' ? (
                 <>
-                  <h3 className="text-xs uppercase tracking-widest font-bold text-cyan-500/80 mb-4">Currículum Vitae</h3>
+                  <h3 className="text-xs uppercase tracking-widest font-bold text-blue-500/80 mb-4">Currículum Vitae</h3>
                   
                   <div className="glass-panel glass-panel-hover rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-all shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20 group-hover:bg-blue-500/20 transition-all shrink-0">
                         <FileText className="w-5 h-5" />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-medium text-white text-sm group-hover:text-cyan-300 transition-colors truncate">CV_{candidate.name.replace(' ', '_')}.pdf</p>
+                        <p className="font-medium text-white text-sm group-hover:text-blue-300 transition-colors truncate">CV_{candidate.name.replace(' ', '_')}.pdf</p>
                         <p className="text-xs text-slate-400 mt-0.5 font-light">245 KB • Actualizado hace 2 días</p>
                       </div>
                     </div>
@@ -315,15 +315,15 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                        <button className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold transition-colors border border-slate-700 whitespace-nowrap flex items-center gap-1.5">
                          <Download className="w-3.5 h-3.5" /> Descargar CV
                        </button>
-                       <button className="px-3 py-1.5 bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-400 rounded-lg text-xs font-semibold transition-colors border border-cyan-500/30 whitespace-nowrap">
+                       <button className="px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 rounded-lg text-xs font-semibold transition-colors border border-blue-500/30 whitespace-nowrap">
                          Ver Perfil Completo
                        </button>
                     </div>
                   </div>
 
                   {/* Upload CV */}
-                  <label className="mt-4 p-4 border border-dashed border-slate-700 hover:border-cyan-500/50 rounded-xl bg-slate-900/30 flex flex-col items-center justify-center cursor-pointer transition-colors group relative">
-                    <Upload className="w-6 h-6 text-slate-500 group-hover:text-cyan-400 mb-2 transition-colors" />
+                  <label className="mt-4 p-4 border border-dashed border-slate-700 hover:border-blue-500/50 rounded-xl bg-slate-900/30 flex flex-col items-center justify-center cursor-pointer transition-colors group relative">
+                    <Upload className="w-6 h-6 text-slate-500 group-hover:text-blue-400 mb-2 transition-colors" />
                     <span className="text-sm text-slate-300 font-medium">
                       {uploadedCV ? uploadedCV.name : "Arrastra o haz clic para subir un nuevo CV"}
                     </span>
@@ -343,7 +343,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                   {candidate.customAnswers && candidate.customAnswers.length > 0 && (
                     <>
                       <div className="h-px bg-white/5 my-8"></div>
-                      <h3 className="text-xs uppercase tracking-widest font-bold text-cyan-500/80 mb-4">Preguntas de Selección</h3>
+                      <h3 className="text-xs uppercase tracking-widest font-bold text-blue-500/80 mb-4">Preguntas de Selección</h3>
                       <div className="space-y-6">
                         {candidate.customAnswers.map((item: any, i: number) => (
                           <div key={i}>
@@ -462,7 +462,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                     </div>
                     {/* Event 2 */}
                     <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.2)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ms-0 md:mx-auto">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)] shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 ms-0 md:mx-auto">
                         <Activity className="w-4 h-4" />
                       </div>
                       <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-4 rounded-xl border border-white/5">
@@ -473,7 +473,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                         <p className="text-xs text-slate-400 font-light leading-relaxed">
                           Movido de <b>Screening</b> a <b>Entrevista Técnica</b> por Luis Pérez.
                         </p>
-                        <p className="text-xs text-cyan-400 mt-2 font-medium bg-slate-900/50 p-2 rounded-lg inline-block">
+                        <p className="text-xs text-blue-400 mt-2 font-medium bg-slate-900/50 p-2 rounded-lg inline-block">
                           @Diana R. por favor revisar el CV técnico adjunto.
                         </p>
                       </div>
@@ -673,7 +673,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
               
               <div className="flex items-center justify-between space-x-4">
                 <div>
-                  <h3 className="text-xs uppercase tracking-widest font-bold text-cyan-500/80">Agendar y Mover</h3>
+                  <h3 className="text-xs uppercase tracking-widest font-bold text-blue-500/80">Agendar y Mover</h3>
                 </div>
                 <div className="flex gap-2 flex-wrap justify-end">
                   <button 
@@ -686,7 +686,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                     <CalendarIcon className="w-3.5 h-3.5" /> Entrevista
                   </button>
                   <button className="px-3 py-1.5 glass-panel text-slate-300 hover:text-white hover:bg-white/5 rounded-md text-xs font-medium transition-colors">Rechazar</button>
-                  <button className="px-3 py-1.5 bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white rounded-md text-xs font-bold flex items-center gap-1 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)] hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+                  <button className="px-3 py-1.5 bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white rounded-md text-xs font-bold flex items-center gap-1 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)] hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]">
                     Avanzar <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -712,7 +712,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                              type="date" 
                              value={scheduleDate}
                              onChange={(e) => setScheduleDate(e.target.value)}
-                             className="w-full bg-slate-900 border border-white/10 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:border-cyan-500/50" 
+                             className="w-full bg-slate-900 border border-white/10 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500/50" 
                            />
                          </div>
                          <div>
@@ -721,7 +721,7 @@ export function CandidateProfileModal({ candidate, onClose }: CandidateProfileMo
                              type="time" 
                              value={scheduleTime}
                              onChange={(e) => setScheduleTime(e.target.value)}
-                             className="w-full bg-slate-900 border border-white/10 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:border-cyan-500/50" 
+                             className="w-full bg-slate-900 border border-white/10 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:border-blue-500/50" 
                            />
                          </div>
                        </div>

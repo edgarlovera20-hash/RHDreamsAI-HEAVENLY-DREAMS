@@ -151,7 +151,7 @@ export function ProvidersPanel() {
       <div className="p-6 border-b border-white/5 flex justify-between items-center bg-slate-900/30">
         <div>
           <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-amber-400" />
+            <Sparkles className="w-5 h-5 text-amber-400 animate-pulse-soft" />
             Proveedores de IA
           </h2>
           <p className="text-sm text-slate-400 font-light">Configura qué modelo de IA usan tus agentes. El proveedor por defecto se usa cuando un agente no tiene uno asignado.</p>
@@ -240,7 +240,7 @@ export function ProvidersPanel() {
                         )}
                         <button
                           onClick={() => startEdit(p)}
-                          className="text-xs px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:border-cyan-500/50 hover:text-cyan-400 transition-colors"
+                          className="text-xs px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                         >
                           Editar
                         </button>
@@ -281,7 +281,7 @@ export function ProvidersPanel() {
                       baseUrl: kinds[p]?.baseUrl || '',
                     }));
                   }}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 appearance-none disabled:opacity-50"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 appearance-none disabled:opacity-50"
                 >
                   {providerKindKeys.map((k) => (
                     <option key={k} value={k}>
@@ -299,7 +299,7 @@ export function ProvidersPanel() {
                   value={draft.label}
                   onChange={(e) => setDraft((d) => ({ ...d, label: e.target.value }))}
                   placeholder={kinds[draft.provider]?.label || 'Mi proveedor'}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
                 />
               </div>
 
@@ -312,7 +312,7 @@ export function ProvidersPanel() {
                   value={draft.apiKey}
                   onChange={(e) => setDraft((d) => ({ ...d, apiKey: e.target.value }))}
                   placeholder={editing ? '••••••••' : 'sk-...'}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-cyan-500/50"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
                 />
               </div>
 
@@ -324,7 +324,7 @@ export function ProvidersPanel() {
                     value={draft.model}
                     onChange={(e) => setDraft((d) => ({ ...d, model: e.target.value }))}
                     placeholder={kinds[draft.provider]?.model}
-                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-cyan-500/50"
+                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
                   />
                 </div>
                 <div>
@@ -336,7 +336,7 @@ export function ProvidersPanel() {
                     value={draft.baseUrl}
                     onChange={(e) => setDraft((d) => ({ ...d, baseUrl: e.target.value }))}
                     placeholder={kinds[draft.provider]?.baseUrl || 'auto'}
-                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-cyan-500/50"
+                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
                   />
                 </div>
               </div>

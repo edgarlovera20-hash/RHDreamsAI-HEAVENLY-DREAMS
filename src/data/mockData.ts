@@ -120,7 +120,7 @@ export const MOCK_AGENTS = [
     memory: '1.2 GB',
     conversations: 154,
     successRate: '28%',
-    avatarColor: 'bg-cyan-500'
+    avatarColor: 'bg-blue-500'
   },
   {
     id: 'ag-2',

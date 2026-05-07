@@ -162,7 +162,7 @@ export function MetaProvidersPanel() {
                   value={draft.businessAccountId}
                   onChange={(e) => setDraft((d) => ({ ...d, businessAccountId: e.target.value }))}
                   placeholder="Ej: 123456789012345"
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 font-mono"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
                 />
                 <p className="text-[11px] text-slate-500 mt-1">Tu Business Account ID de Meta. Puedes encontrarlo en tu Business Manager.</p>
               </div>
@@ -174,7 +174,7 @@ export function MetaProvidersPanel() {
                   value={draft.accessToken}
                   onChange={(e) => setDraft((d) => ({ ...d, accessToken: e.target.value }))}
                   placeholder="EAAxxxx..."
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-cyan-500/50"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
                 />
                 <p className="text-[11px] text-slate-500 mt-1">Token de acceso de larga duración para tu aplicación Meta. Disponible en tu App Dashboard.</p>
               </div>
@@ -186,7 +186,7 @@ export function MetaProvidersPanel() {
                   value={draft.webhookToken}
                   onChange={(e) => setDraft((d) => ({ ...d, webhookToken: e.target.value }))}
                   placeholder="token_seguro_para_webhook"
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-cyan-500/50"
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
                 />
                 <p className="text-[11px] text-slate-500 mt-1">Token que usarás para verificar webhooks desde Meta. Puede ser cualquier string seguro que definas.</p>
               </div>

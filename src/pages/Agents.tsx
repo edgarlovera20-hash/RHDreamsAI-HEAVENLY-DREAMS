@@ -21,7 +21,7 @@ const ROLE_OPTIONS = [
 
 const ALL_CHANNELS = ['Email', 'LinkedIn', 'WhatsApp', 'Plataforma ATS'];
 
-const AVATAR_PALETTE = ['bg-cyan-500', 'bg-purple-500', 'bg-amber-500', 'bg-emerald-500', 'bg-rose-500', 'bg-indigo-500', 'bg-blue-500', 'bg-fuchsia-500'];
+const AVATAR_PALETTE = ['bg-blue-500', 'bg-purple-500', 'bg-amber-500', 'bg-emerald-500', 'bg-rose-500', 'bg-indigo-500', 'bg-sky-500', 'bg-fuchsia-500'];
 
 type DraftAgent = {
   id?: string;
@@ -42,7 +42,7 @@ const EMPTY_DRAFT: DraftAgent = {
   systemPrompt: '',
   channels: ['Email'],
   providerId: '',
-  avatarColor: 'bg-cyan-500',
+  avatarColor: 'bg-blue-500',
   status: 'Active',
 };
 
@@ -229,13 +229,13 @@ export function Agents() {
   const getIcon = (name: string) => {
     switch (name) {
       case 'Code':
-        return <Code className="w-6 h-6 text-cyan-400" />;
+        return <Code className="w-6 h-6 text-blue-400" />;
       case 'Briefcase':
-        return <Briefcase className="w-6 h-6 text-cyan-400" />;
+        return <Briefcase className="w-6 h-6 text-blue-400" />;
       case 'Users':
-        return <Users className="w-6 h-6 text-cyan-400" />;
+        return <Users className="w-6 h-6 text-blue-400" />;
       default:
-        return <Bot className="w-6 h-6 text-cyan-400" />;
+        return <Bot className="w-6 h-6 text-blue-400" />;
     }
   };
 
@@ -285,11 +285,11 @@ export function Agents() {
   }
 
   return (
-    <div className="flex flex-col gap-6 h-full pb-8">
+    <div className="page-enter flex flex-col gap-6 h-full pb-8">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center gap-2">
-            <BrainCircuit className="w-6 h-6 text-cyan-400" />
+          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500 flex items-center gap-2">
+            <BrainCircuit className="w-6 h-6 text-blue-400 animate-pulse-soft" />
             Flota de Agentes AI
           </h1>
           <p className="text-slate-400 mt-1">Crea, edita y prueba agentes de reclutamiento autónomo con LLM real.</p>
@@ -297,7 +297,7 @@ export function Agents() {
 
         <button
           onClick={startCreate}
-          className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)] hover:shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+          className="bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold px-4 py-2 rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_15px_rgba(96,165,250,0.2)] hover:shadow-[0_0_20px_rgba(96,165,250,0.4)]"
         >
           <Plus className="w-4 h-4" />
           Crear Nuevo Agente
@@ -324,7 +324,7 @@ export function Agents() {
         <button
           onClick={() => setActiveTab('agents')}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-            activeTab === 'agents' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.1)]' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+            activeTab === 'agents' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-[0_0_10px_rgba(96,165,250,0.1)]' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
           }`}
         >
           Mis Agentes
@@ -332,7 +332,7 @@ export function Agents() {
         <button
           onClick={() => setActiveTab('templates')}
           className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-            activeTab === 'templates' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.1)]' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+            activeTab === 'templates' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-[0_0_10px_rgba(96,165,250,0.1)]' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
           }`}
         >
           Plantillas
@@ -340,7 +340,7 @@ export function Agents() {
         <button
           onClick={() => setActiveTab('memory')}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-            activeTab === 'memory' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 shadow-[0_0_10px_rgba(34,211,238,0.1)]' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+            activeTab === 'memory' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-[0_0_10px_rgba(96,165,250,0.1)]' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
           }`}
         >
           <Activity className="w-4 h-4" />
@@ -357,10 +357,10 @@ export function Agents() {
               </div>
             ) : agents.length === 0 ? (
               <div className="glass-panel p-8 rounded-xl text-center">
-                <BrainCircuit className="w-10 h-10 text-cyan-400/50 mx-auto mb-3" />
+                <BrainCircuit className="w-10 h-10 text-blue-400/50 mx-auto mb-3" />
                 <h3 className="text-white font-semibold mb-1">No tienes agentes</h3>
                 <p className="text-sm text-slate-400 mb-4">Crea tu primer agente para empezar.</p>
-                <button onClick={startCreate} className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm">
+                <button onClick={startCreate} className="bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold px-4 py-2 rounded-lg text-sm">
                   Crear primer agente
                 </button>
               </div>
@@ -372,7 +372,7 @@ export function Agents() {
                     <div
                       key={agent.id}
                       onClick={() => openChat(agent)}
-                      className="glass-panel p-6 rounded-2xl flex flex-col border border-slate-700/50 hover:border-cyan-500/30 hover:shadow-[0_8px_30px_rgba(34,211,238,0.05)] transition-all hover:-translate-y-1 group cursor-pointer"
+                      className="glass-panel p-6 rounded-2xl flex flex-col border border-slate-700/50 hover:border-blue-500/30 hover:shadow-[0_8px_30px_rgba(96,165,250,0.05)] transition-all hover:-translate-y-1 group cursor-pointer"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-3">
@@ -389,7 +389,7 @@ export function Agents() {
                           <button
                             type="button"
                             onClick={(e) => toggleStatus(agent, e)}
-                            className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+                            className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
                               agent.status === 'Active' ? 'bg-emerald-500' : 'bg-slate-700'
                             }`}
                             role="switch"
@@ -445,7 +445,7 @@ export function Agents() {
                           </div>
                           <div>
                             <p className="text-xs text-slate-500">Éxito</p>
-                            <p className="text-sm font-semibold text-cyan-400">{agent.successRate}</p>
+                            <p className="text-sm font-semibold text-blue-400">{agent.successRate}</p>
                           </div>
                         </div>
                       </div>
@@ -453,7 +453,7 @@ export function Agents() {
                       <div className="mt-4 flex gap-2 border-t border-slate-700/50 pt-3" onClick={(e) => e.stopPropagation()}>
                         <button
                           onClick={() => openChat(agent)}
-                          className="flex-1 py-1.5 text-sm font-medium text-cyan-400 bg-cyan-400/10 hover:bg-cyan-400/20 rounded-lg transition-colors flex items-center justify-center gap-2"
+                          className="flex-1 py-1.5 text-sm font-medium text-blue-400 bg-blue-400/10 hover:bg-blue-400/20 rounded-lg transition-colors flex items-center justify-center gap-2"
                         >
                           <MessageSquare className="w-4 h-4" /> Chatear
                         </button>
@@ -481,7 +481,7 @@ export function Agents() {
         {activeTab === 'templates' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {MOCK_PREBUILT_TEMPLATES.map((tpl) => (
-              <div key={tpl.id} className="relative glass-panel p-6 rounded-2xl border border-slate-700/50 flex flex-col group overflow-hidden cursor-pointer hover:border-cyan-500/50 transition-colors">
+              <div key={tpl.id} className="relative glass-panel p-6 rounded-2xl border border-slate-700/50 flex flex-col group overflow-hidden cursor-pointer hover:border-blue-500/50 transition-colors">
                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">{getIcon(tpl.icon)}</div>
                 <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-600 flex items-center justify-center mb-4">{getIcon(tpl.icon)}</div>
                 <h3 className="font-semibold text-white mb-2">{tpl.name}</h3>
@@ -500,7 +500,7 @@ export function Agents() {
                         : d
                     );
                   }}
-                  className="w-full py-2 bg-slate-800 hover:bg-cyan-500 text-slate-200 hover:text-slate-900 rounded-xl transition-all font-medium text-sm flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent"
+                  className="w-full py-2 bg-slate-800 hover:bg-blue-500 text-slate-200 hover:text-slate-900 rounded-xl transition-all font-medium text-sm flex items-center justify-center gap-2 border border-slate-700 hover:border-transparent"
                 >
                   <Plus className="w-4 h-4" /> Usar Plantilla
                 </button>
@@ -514,7 +514,7 @@ export function Agents() {
             <div className="bg-slate-900/80 p-4 border-b border-slate-700/50 flex flex-col gap-4">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <h3 className="text-sm font-semibold flex items-center gap-2 text-slate-200">
-                  <Activity className="w-4 h-4 text-cyan-400" /> Historial de Conversaciones
+                  <Activity className="w-4 h-4 text-blue-400" /> Historial de Conversaciones
                 </h3>
                 <div className="flex items-center gap-2">
                   <span className="flex h-2 w-2 relative">
@@ -534,7 +534,7 @@ export function Agents() {
                       const agent = agents.find((a) => a.id === e.target.value);
                       if (agent) loadConversations(agent);
                     }}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
                   >
                     <option value="">-- Elige un agente --</option>
                     {agents.map((a) => (
@@ -546,7 +546,7 @@ export function Agents() {
                 </div>
 
                 <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-2 rounded-lg text-xs">
-                  <Filter className="w-3 h-3 text-cyan-400" />
+                  <Filter className="w-3 h-3 text-blue-400" />
                   <span className="text-slate-400">Desde:</span>
                   <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-transparent text-slate-300 outline-none w-24 [color-scheme:dark]" />
                   <span className="text-slate-500">-</span>
@@ -571,7 +571,7 @@ export function Agents() {
               <div className="flex-1 overflow-y-auto">
                 {memoryLoading ? (
                   <div className="p-8 text-center">
-                    <Loader2 className="w-5 h-5 animate-spin text-cyan-400 mx-auto mb-2" />
+                    <Loader2 className="w-5 h-5 animate-spin text-blue-400 mx-auto mb-2" />
                     <p className="text-sm text-slate-400">Cargando conversaciones...</p>
                   </div>
                 ) : conversationStats ? (
@@ -580,15 +580,15 @@ export function Agents() {
                     <div className="bg-black/30 p-4 border-b border-slate-700/50 grid grid-cols-3 gap-4">
                       <div>
                         <p className="text-xs text-slate-500 uppercase">Conversaciones</p>
-                        <p className="text-xl font-semibold text-cyan-400">{conversationStats.total_conversations}</p>
+                        <p className="text-xl font-semibold text-blue-400">{conversationStats.total_conversations}</p>
                       </div>
                       <div>
                         <p className="text-xs text-slate-500 uppercase">Mensajes Total</p>
-                        <p className="text-xl font-semibold text-cyan-400">{conversationStats.total_messages}</p>
+                        <p className="text-xl font-semibold text-blue-400">{conversationStats.total_messages}</p>
                       </div>
                       <div>
                         <p className="text-xs text-slate-500 uppercase">Contactos Únicos</p>
-                        <p className="text-xl font-semibold text-cyan-400">{conversationStats.unique_contacts}</p>
+                        <p className="text-xl font-semibold text-blue-400">{conversationStats.unique_contacts}</p>
                       </div>
                     </div>
 
@@ -608,7 +608,7 @@ export function Agents() {
                             >
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <Users className="w-4 h-4 text-cyan-400 shrink-0" />
+                                  <Users className="w-4 h-4 text-blue-400 shrink-0" />
                                   <p className="font-semibold text-slate-200 truncate">{conv.contactName || conv.contactPhone}</p>
                                 </div>
                                 <p className="text-xs text-slate-500">{conv.contactPhone} • {conv.totalMessages} mensajes</p>
@@ -660,7 +660,7 @@ export function Agents() {
             <button onClick={() => setEditing(null)} className="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
               <X className="w-5 h-5" />
             </button>
-            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 mb-6">{editing.id ? 'Editar Agente' : 'Crear Agente Personalizado'}</h2>
+            <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-500 mb-6">{editing.id ? 'Editar Agente' : 'Crear Agente Personalizado'}</h2>
 
             <div className="space-y-5">
               <div>
@@ -669,7 +669,7 @@ export function Agents() {
                 </label>
                 <input
                   type="text"
-                  className="w-full bg-slate-800 border border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 transition-all font-medium"
+                  className="w-full bg-slate-800 border border-slate-700 focus:border-blue-500 focus:ring-blue-500/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 transition-all font-medium"
                   placeholder="Ej: Reclutador de React"
                   value={editing.name}
                   onChange={(e) => setEditing({ ...editing, name: e.target.value })}
@@ -683,7 +683,7 @@ export function Agents() {
                 <input
                   type="text"
                   list="agent-roles"
-                  className="w-full bg-slate-800 border border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 transition-all"
+                  className="w-full bg-slate-800 border border-slate-700 focus:border-blue-500 focus:ring-blue-500/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 transition-all"
                   value={editing.role}
                   onChange={(e) => setEditing({ ...editing, role: e.target.value })}
                   placeholder="Escribe o selecciona un rol..."
@@ -699,7 +699,7 @@ export function Agents() {
                 <label className="text-sm text-slate-300 mb-2 block">Descripción breve</label>
                 <input
                   type="text"
-                  className="w-full bg-slate-800 border border-slate-700 focus:border-cyan-500 focus:ring-cyan-500/50 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-1 transition-all text-sm"
+                  className="w-full bg-slate-800 border border-slate-700 focus:border-blue-500 focus:ring-blue-500/50 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:ring-1 transition-all text-sm"
                   placeholder="Una línea explicando qué hace este agente"
                   value={editing.description}
                   onChange={(e) => setEditing({ ...editing, description: e.target.value })}
@@ -710,7 +710,7 @@ export function Agents() {
                 <label className="text-sm text-slate-300 block mb-1">System Prompt (instrucciones al modelo)</label>
                 <p className="text-xs text-slate-500 mb-2">Es el rol y tono que el LLM adoptará. Sé específico.</p>
                 <textarea
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-y font-mono text-sm leading-relaxed h-32"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-y font-mono text-sm leading-relaxed h-32"
                   placeholder="Eres un reclutador tech amigable pero directo. Tu objetivo es encontrar desarrolladores frontend con React. Pregunta por experiencia, stack y disponibilidad."
                   value={editing.systemPrompt}
                   onChange={(e) => setEditing({ ...editing, systemPrompt: e.target.value })}
@@ -723,7 +723,7 @@ export function Agents() {
                   Proveedor de IA
                 </label>
                 <select
-                  className="w-full bg-slate-800 border border-slate-700 focus:border-cyan-500 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 transition-all appearance-none"
+                  className="w-full bg-slate-800 border border-slate-700 focus:border-blue-500 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all appearance-none"
                   value={editing.providerId}
                   onChange={(e) => setEditing({ ...editing, providerId: e.target.value })}
                 >
@@ -743,8 +743,8 @@ export function Agents() {
                   {ALL_CHANNELS.map((ch) => {
                     const checked = editing.channels.includes(ch);
                     return (
-                      <label key={ch} className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors border ${checked ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-200' : 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300'}`}>
-                        <input type="checkbox" className="rounded bg-slate-900 border-slate-600 text-cyan-500 focus:ring-cyan-500" checked={checked} onChange={() => toggleChannel(ch)} />
+                      <label key={ch} className={`flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer transition-colors border ${checked ? 'bg-blue-500/10 border-blue-500/30 text-blue-200' : 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300'}`}>
+                        <input type="checkbox" className="rounded bg-slate-900 border-slate-600 text-blue-500 focus:ring-blue-500" checked={checked} onChange={() => toggleChannel(ch)} />
                         <span className="text-sm">{ch}</span>
                       </label>
                     );
@@ -783,7 +783,7 @@ export function Agents() {
               <button
                 onClick={submitDraft}
                 disabled={!editing.name.trim() || !editing.role.trim() || submitting}
-                className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold px-6 py-2.5 rounded-xl flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold px-6 py-2.5 rounded-xl flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(96,165,250,0.2)] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" fill="currentColor" />}
                 {editing.id ? 'Guardar Cambios' : 'Desplegar Agente'}
@@ -853,7 +853,7 @@ export function Agents() {
                 }
                 return (
                   <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap ${msg.role === 'user' ? 'bg-cyan-600 text-white rounded-br-none' : 'bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-none'}`}>{msg.text}</div>
+                    <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm whitespace-pre-wrap ${msg.role === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-none'}`}>{msg.text}</div>
                   </div>
                 );
               })}
@@ -874,13 +874,13 @@ export function Agents() {
                   value={currentMessage}
                   onChange={(e) => setCurrentMessage(e.target.value)}
                   placeholder="Escribe un mensaje al agente..."
-                  className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
                   disabled={chatPending}
                 />
                 <button
                   type="submit"
                   disabled={!currentMessage.trim() || chatPending}
-                  className="bg-cyan-500 hover:bg-cyan-600 disabled:bg-slate-700 disabled:text-slate-500 text-slate-900 p-2.5 rounded-xl transition-colors flex items-center justify-center"
+                  className="bg-blue-500 hover:bg-blue-600 disabled:bg-slate-700 disabled:text-slate-500 text-slate-900 p-2.5 rounded-xl transition-colors flex items-center justify-center"
                 >
                   {chatPending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
                 </button>

@@ -74,21 +74,21 @@ export function AppLayout() {
         <div className="flex flex-col">
           <div className="flex items-center gap-2 font-bold text-white text-lg tracking-tight">
             <div className="w-10 h-10 relative flex items-center justify-center text-white shrink-0">
-              <div className="absolute inset-0 bg-cyan-500/30 blur-lg rounded-full"></div>
-              <img src="/logo.png" alt="Heavenly Dreams Logo" className="w-10 h-10 object-contain relative z-10 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
+              <div className="absolute inset-0 bg-blue-500/30 blur-lg rounded-full"></div>
+              <img src="/logo.png" alt="Heavenly Dreams Logo" className="w-10 h-10 object-contain relative z-10 drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]" />
             </div>
-            <span>RH<span className="text-cyan-400">Dreams</span></span>
+            <span>RH<span className="text-blue-400">Dreams</span></span>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={toggleTheme} className="p-2 text-slate-400 hover:text-cyan-300 transition-colors">
+          <button onClick={toggleTheme} className="p-2 text-slate-400 hover:text-blue-300 transition-colors">
             {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
           <NotificationsPopover align="right" direction="down" />
           <button onClick={logout} title="Cerrar sesión" className="p-2 text-slate-400 hover:text-rose-400 transition-colors">
             <LogOut className="w-5 h-5" />
           </button>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-cyan-400 hover:text-cyan-300 transition-colors">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 text-blue-400 hover:text-blue-300 transition-colors">
             {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -113,12 +113,12 @@ export function AppLayout() {
         )}
       >
         <div className={cn("hidden md:flex flex-col justify-center border-b border-white/5 shrink-0 relative overflow-hidden transition-all duration-300", isCollapsed ? "h-20 px-2" : "h-32 px-8")}>
-          <div className="absolute top-0 right-0 p-16 bg-cyan-500/10 blur-2xl rounded-full opacity-50 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 p-16 bg-blue-500/10 blur-2xl rounded-full opacity-50 pointer-events-none"></div>
           
           <button 
             onClick={() => setIsCollapsed(!isCollapsed)} 
             className={cn(
-              "absolute z-20 text-slate-400 hover:text-cyan-300 transition-colors p-1 rounded-md hover:bg-slate-800/50 hidden md:block",
+              "absolute z-20 text-slate-400 hover:text-blue-300 transition-colors p-1 rounded-md hover:bg-slate-800/50 hidden md:block",
               isCollapsed ? "top-2 right-1/2 translate-x-1/2" : "top-3 right-3"
             )}
           >
@@ -127,13 +127,13 @@ export function AppLayout() {
 
           <div className={cn("flex items-center gap-3 font-bold text-white text-xl tracking-tight group cursor-pointer relative z-10", isCollapsed ? "justify-center mt-3" : "")}>
             <div className="w-14 h-14 relative flex items-center justify-center text-white transition-transform group-hover:scale-105 duration-300 shrink-0">
-              <div className="absolute inset-0 bg-cyan-500/40 blur-xl rounded-full group-hover:bg-cyan-400/50 transition-all"></div>
-              <img src="/logo.png" alt="Heavenly Dreams Logo" className="w-14 h-14 object-contain relative z-10 drop-shadow-[0_0_10px_rgba(34,211,238,0.7)]" />
+              <div className="absolute inset-0 bg-blue-500/40 blur-xl rounded-full group-hover:bg-blue-400/50 transition-all"></div>
+              <img src="/logo.png" alt="Heavenly Dreams Logo" className="w-14 h-14 object-contain relative z-10 drop-shadow-[0_0_10px_rgba(96,165,250,0.7)]" />
             </div>
             {!isCollapsed && (
               <div className="flex flex-col">
-                <span className="font-bold tracking-tighter text-2xl">RH<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Dreams</span></span>
-                <span className="text-[9px] text-cyan-400/80 uppercase tracking-[0.2em] font-bold mt-0.5">Heavenly Dreams</span>
+                <span className="font-bold tracking-tighter text-2xl">RH<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">Dreams</span></span>
+                <span className="text-[9px] text-blue-400/80 uppercase tracking-[0.2em] font-bold mt-0.5">Heavenly Dreams</span>
               </div>
             )}
           </div>
@@ -153,13 +153,13 @@ export function AppLayout() {
                     "flex items-center rounded-lg font-medium transition-all duration-300 group relative overflow-hidden",
                     isCollapsed ? "justify-center py-3 px-0 w-10 h-10 mx-auto" : "gap-3 px-4 py-3",
                     isActive 
-                      ? "text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]" 
+                      ? "text-blue-300 bg-blue-500/10 border border-blue-500/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]" 
                       : "text-slate-400 hover:text-white border border-transparent hover:bg-slate-800/40"
                   )}
                 >
-                  <Icon className={cn("w-5 h-5 relative z-10 transition-colors shrink-0", isActive ? "text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]" : "opacity-70 group-hover:text-cyan-300")} />
+                  <Icon className={cn("w-5 h-5 relative z-10 transition-colors shrink-0", isActive ? "text-blue-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]" : "opacity-70 group-hover:text-blue-300")} />
                   {!isCollapsed && <span className="relative z-10 tracking-wide text-[13px] whitespace-nowrap">{item.name}</span>}
-                  {isActive && !isCollapsed && <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse relative z-10 shrink-0" />}
+                  {isActive && !isCollapsed && <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_8px_#60a5fa] animate-pulse relative z-10 shrink-0" />}
                 </Link>
               );
             })}
@@ -177,19 +177,19 @@ export function AppLayout() {
         </div>
         
         <div className={cn("p-4 border-t border-white/5 shrink-0 bg-black/10 flex items-center transition-all duration-300", isCollapsed ? "flex-col gap-4 justify-center" : "justify-between")}>
-          <div className={cn("flex items-center gap-3 glass-panel p-2 rounded-xl group cursor-pointer hover:border-cyan-500/30 transition-colors", isCollapsed ? "justify-center w-full" : "flex-1 min-w-0")}>
-            <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-600 flex flex-shrink-0 items-center justify-center text-cyan-400 font-bold text-sm shadow-[0_0_10px_rgba(34,211,238,0.1)] group-hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-all">
+          <div className={cn("flex items-center gap-3 glass-panel p-2 rounded-xl group cursor-pointer hover:border-blue-500/30 transition-colors", isCollapsed ? "justify-center w-full" : "flex-1 min-w-0")}>
+            <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-600 flex flex-shrink-0 items-center justify-center text-blue-400 font-bold text-sm shadow-[0_0_10px_rgba(96,165,250,0.1)] group-hover:shadow-[0_0_15px_rgba(96,165,250,0.3)] transition-all">
               {initials}
             </div>
             {!isCollapsed && (
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors truncate">{user?.name || 'Usuario'}</span>
-                <span className="text-[10px] text-cyan-500 uppercase tracking-widest mt-0.5 truncate">{user?.role || 'Member'}</span>
+                <span className="text-[10px] text-blue-500 uppercase tracking-widest mt-0.5 truncate">{user?.role || 'Member'}</span>
               </div>
             )}
           </div>
           <div className={cn("flex items-center gap-1 shrink-0", isCollapsed ? "flex-col w-full" : "ml-2")}>
-            <button onClick={toggleTheme} className={cn("p-2 text-slate-400 hover:text-cyan-300 transition-colors rounded-full hover:bg-slate-800/50", isCollapsed && "w-10 h-10 flex items-center justify-center")}>
+            <button onClick={toggleTheme} className={cn("p-2 text-slate-400 hover:text-blue-300 transition-colors rounded-full hover:bg-slate-800/50", isCollapsed && "w-10 h-10 flex items-center justify-center")}>
               {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <div className={cn(isCollapsed && "flex items-center justify-center w-10 h-10")}>
@@ -218,7 +218,7 @@ export function AppLayout() {
       <main className="flex-1 overflow-auto w-full relative z-10 styled-scrollbar">
         <div className="p-4 md:p-8 md:pt-4 max-w-7xl mx-auto min-w-0 flex flex-col h-full">
           <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
-            <Link to="/" className="hover:text-cyan-400 transition-colors flex items-center gap-1">
+            <Link to="/" className="hover:text-blue-400 transition-colors flex items-center gap-1">
               <Home className="w-4 h-4" />
             </Link>
             {location.pathname !== "/" && (

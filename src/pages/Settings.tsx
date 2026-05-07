@@ -82,7 +82,7 @@ export function Settings() {
   };
 
   return (
-    <div className="flex flex-col gap-6 max-w-5xl">
+    <div className="page-enter flex flex-col gap-6 max-w-5xl">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-white mt-2">Configuración</h1>
         <p className="text-slate-400">Maneja tu equipo, roles, permisos y opciones del sistema.</p>
@@ -107,7 +107,7 @@ export function Settings() {
               className={cn(
                 "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all text-left",
                 activeTab === tab.id 
-                  ? "bg-cyan-500/10 text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]" 
+                  ? "bg-blue-500/10 text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]" 
                   : "text-slate-400 hover:bg-slate-800 hover:text-white"
               )}
             >
@@ -118,7 +118,7 @@ export function Settings() {
         </div>
 
         <div className="flex-1 w-full glass-panel rounded-2xl overflow-hidden relative group">
-          <div className="absolute -inset-20 bg-cyan-500/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none duration-1000"></div>
+          <div className="absolute -inset-20 bg-blue-500/5 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none duration-1000"></div>
           
           <div className="relative z-10 w-full h-full">
             {activeTab === 'providers' ? (
@@ -138,7 +138,7 @@ export function Settings() {
                   </div>
                   <button 
                     onClick={() => setIsFlowModalOpen(true)}
-                    className="bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                    className="bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)]">
                     <Plus className="w-4 h-4" /> Crear Flujo
                   </button>
                 </div>
@@ -148,15 +148,15 @@ export function Settings() {
                     {automations.map(auto => (
                       <div key={auto.id} className="glass-panel glass-panel-hover p-5 rounded-xl flex items-center justify-between group">
                         <div className="flex items-center gap-4">
-                          <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-all", auto.active ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shadow-[inset_0_0_8px_rgba(6,182,212,0.2)]" : "bg-slate-800 text-slate-500 border border-slate-700")}>
+                          <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-all", auto.active ? "bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-[inset_0_0_8px_rgba(59,130,246,0.2)]" : "bg-slate-800 text-slate-500 border border-slate-700")}>
                             <Zap className="w-5 h-5" />
                           </div>
                           <div>
                             <h4 className={cn("font-semibold transition-colors", auto.active ? "text-white" : "text-slate-400")}>{auto.name}</h4>
                             <div className={cn("flex flex-wrap items-center gap-2 mt-2 text-[11px] uppercase tracking-wider font-bold", auto.active ? "text-slate-400" : "text-slate-600")}>
                                <span className="glass-panel px-2 py-0.5 rounded text-slate-300">{auto.trigger}</span>
-                               <span className="text-cyan-500/50 font-normal lowercase tracking-normal">→ entonces →</span>
-                               <span className="bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded">{auto.action}</span>
+                               <span className="text-blue-500/50 font-normal lowercase tracking-normal">→ entonces →</span>
+                               <span className="bg-blue-500/10 border border-blue-500/20 text-blue-400 px-2 py-0.5 rounded">{auto.action}</span>
                             </div>
                           </div>
                         </div>
@@ -172,7 +172,7 @@ export function Settings() {
                           >
                             {auto.active ? 'Activo' : 'Inactivo'}
                           </button>
-                          <button className="p-2 text-slate-500 hover:text-cyan-400 rounded-lg hover:bg-cyan-500/10 transition-colors">
+                          <button className="p-2 text-slate-500 hover:text-blue-400 rounded-lg hover:bg-blue-500/10 transition-colors">
                             <SettingsIcon className="w-4 h-4" />
                           </button>
                         </div>
@@ -190,7 +190,7 @@ export function Settings() {
                   </div>
                   <button 
                     onClick={() => setIsInviteModalOpen(true)}
-                    className="bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                    className="bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)]">
                     <Plus className="w-4 h-4" /> Invitar
                   </button>
                 </div>
@@ -199,21 +199,21 @@ export function Settings() {
                   <table className="w-full text-left border-collapse text-sm whitespace-nowrap">
                     <thead>
                       <tr className="border-b border-white/5 text-slate-400 uppercase tracking-widest text-[10px] font-bold">
-                        <th className="pb-3 text-cyan-400/80">Usuario</th>
-                        <th className="pb-3 text-cyan-400/80">Rol</th>
-                        <th className="pb-3 text-right text-cyan-400/80">Acción</th>
+                        <th className="pb-3 text-blue-400/80">Usuario</th>
+                        <th className="pb-3 text-blue-400/80">Rol</th>
+                        <th className="pb-3 text-right text-blue-400/80">Acción</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
                     {users.map(user => (
-                        <tr key={user.id} className="hover:bg-cyan-500/5 transition-colors group">
+                        <tr key={user.id} className="hover:bg-blue-500/5 transition-colors group">
                           <td className="py-4">
                             <div className="font-medium text-white">{user.name}</div>
                             <div className="text-slate-500 text-xs">{user.email}</div>
                           </td>
                           <td className="py-4">
                             <select 
-                              className="glass-panel text-slate-300 rounded p-1.5 text-sm outline-none focus:ring-1 focus:ring-cyan-500 appearance-none bg-slate-900"
+                              className="glass-panel text-slate-300 rounded p-1.5 text-sm outline-none focus:ring-1 focus:ring-blue-500 appearance-none bg-slate-900"
                               value={user.role}
                               onChange={(e) => {
                                 setUsers(users.map(u => u.id === user.id ? { ...u, role: e.target.value } : u));
@@ -251,12 +251,12 @@ export function Settings() {
 
                 <div className="p-6 border-t border-white/5 bg-slate-900/20">
                   <h3 className="font-semibold text-slate-300 mb-4 text-xs uppercase tracking-widest flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-cyan-400" /> Niveles de Permiso
+                    <Shield className="w-4 h-4 text-blue-400" /> Niveles de Permiso
                   </h3>
                   <div className="grid gap-4">
                     {ROLES.map(role => (
                       <div key={role.id} className="glass-panel p-4 rounded-xl flex items-start gap-4 hover:border-white/10 transition-colors">
-                        <div className="mt-0.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 p-2 rounded-lg shadow-[inset_0_0_8px_rgba(6,182,212,0.2)]">
+                        <div className="mt-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 p-2 rounded-lg shadow-[inset_0_0_8px_rgba(59,130,246,0.2)]">
                           <Shield className="w-5 h-5" />
                         </div>
                         <div>
@@ -275,7 +275,7 @@ export function Settings() {
                     <h2 className="text-lg font-semibold text-white">Preferencias de Notificación</h2>
                     <p className="text-sm text-slate-400 font-light">Elige qué eventos activan cada tipo de notificación.</p>
                   </div>
-                  <button className="bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                  <button className="bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)]">
                     Guardar Cambios
                   </button>
                 </div>
@@ -285,9 +285,9 @@ export function Settings() {
                     <table className="w-full text-left text-sm">
                       <thead>
                         <tr className="border-b border-white/5 bg-black/20 text-slate-400 uppercase tracking-widest text-[10px] font-bold">
-                          <th className="p-4 font-semibold text-cyan-400/80">Tipo de Evento</th>
-                          <th className="p-4 text-center font-semibold text-cyan-400/80 w-24">In-App</th>
-                          <th className="p-4 text-center font-semibold text-cyan-400/80 w-24">Email</th>
+                          <th className="p-4 font-semibold text-blue-400/80">Tipo de Evento</th>
+                          <th className="p-4 text-center font-semibold text-blue-400/80 w-24">In-App</th>
+                          <th className="p-4 text-center font-semibold text-blue-400/80 w-24">Email</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-white/5">
@@ -307,7 +307,7 @@ export function Settings() {
                                 />
                                 <div className={cn(
                                   "w-9 h-5 rounded-full peer-focus:outline-none transition-all",
-                                  pref.inApp ? "bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]" : "bg-slate-700"
+                                  pref.inApp ? "bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-slate-700"
                                 )}></div>
                                 <div className={cn(
                                   "absolute left-[2px] top-[2px] bg-white border-gray-300 border rounded-full h-4 w-4 transition-all",
@@ -325,7 +325,7 @@ export function Settings() {
                                 />
                                 <div className={cn(
                                   "w-9 h-5 rounded-full peer-focus:outline-none transition-all",
-                                  pref.email ? "bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]" : "bg-slate-700"
+                                  pref.email ? "bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-slate-700"
                                 )}></div>
                                 <div className={cn(
                                   "absolute left-[2px] top-[2px] bg-white border-gray-300 border rounded-full h-4 w-4 transition-all",
@@ -350,7 +350,7 @@ export function Settings() {
                   {!editingTemplate && (
                     <button 
                       onClick={() => setEditingTemplate({ id: Date.now(), name: '', subject: '', type: 'Manual', body: '' })}
-                      className="bg-cyan-600/20 border border-cyan-500/50 hover:bg-cyan-600/40 text-cyan-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                      className="bg-blue-600/20 border border-blue-500/50 hover:bg-blue-600/40 text-blue-50 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(59,130,246,0.2)]">
                       <Plus className="w-4 h-4" /> Crear Plantilla
                     </button>
                   )}
@@ -366,16 +366,16 @@ export function Settings() {
                       <div className="grid gap-4">
                          <div>
                            <label className="block text-xs font-medium text-slate-400 mb-1.5">Nombre de la Plantilla</label>
-                           <input type="text" value={editingTemplate.name} onChange={e => setEditingTemplate({...editingTemplate, name: e.target.value})} className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50" />
+                           <input type="text" value={editingTemplate.name} onChange={e => setEditingTemplate({...editingTemplate, name: e.target.value})} className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50" />
                          </div>
                          <div className="grid grid-cols-2 gap-4">
                            <div>
                              <label className="block text-xs font-medium text-slate-400 mb-1.5">Asunto</label>
-                             <input type="text" value={editingTemplate.subject} onChange={e => setEditingTemplate({...editingTemplate, subject: e.target.value})} className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50" />
+                             <input type="text" value={editingTemplate.subject} onChange={e => setEditingTemplate({...editingTemplate, subject: e.target.value})} className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50" />
                            </div>
                            <div>
                              <label className="block text-xs font-medium text-slate-400 mb-1.5">Categoría</label>
-                             <select value={editingTemplate.type} onChange={e => setEditingTemplate({...editingTemplate, type: e.target.value})} className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 appearance-none">
+                             <select value={editingTemplate.type} onChange={e => setEditingTemplate({...editingTemplate, type: e.target.value})} className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 appearance-none">
                                <option value="Manual">Manual</option>
                                <option value="Automático">Automático</option>
                              </select>
@@ -398,7 +398,7 @@ export function Settings() {
                              setTemplates([...templates, editingTemplate]);
                           }
                           setEditingTemplate(null);
-                        }} className="bg-cyan-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-cyan-600 transition-colors flex items-center gap-2">
+                        }} className="bg-blue-500 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-blue-600 transition-colors flex items-center gap-2">
                           <Check className="w-4 h-4" /> Guardar Plantilla
                         </button>
                       </div>
@@ -418,11 +418,11 @@ export function Settings() {
                               </div>
                             </div>
                             <div className="flex items-center gap-4">
-                              <span className={cn("px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider", template.type === 'Automático' ? "bg-cyan-500/10 text-cyan-400" : "bg-slate-800 text-slate-400")}>
+                              <span className={cn("px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider", template.type === 'Automático' ? "bg-blue-500/10 text-blue-400" : "bg-slate-800 text-slate-400")}>
                                 {template.type}
                               </span>
                               <div className="flex items-center gap-2 border-l border-white/5 pl-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button onClick={() => setEditingTemplate(template)} className="p-1.5 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors">
+                                <button onClick={() => setEditingTemplate(template)} className="p-1.5 text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
                                   <Edit3 className="w-4 h-4" />
                                 </button>
                                 <button onClick={() => setTemplates(templates.filter(t => t.id !== template.id))} className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors">
@@ -444,7 +444,7 @@ export function Settings() {
                           {customFields.map(field => (
                             <div key={field.id} className="glass-panel p-3 rounded-lg flex items-center justify-between">
                               <div>
-                                <h4 className="text-sm text-cyan-300 font-mono text-[11px]">{'{{'}{field.name}{'}}'}</h4>
+                                <h4 className="text-sm text-blue-300 font-mono text-[11px]">{'{{'}{field.name}{'}}'}</h4>
                                 <p className="text-xs text-slate-400 mt-0.5">{field.description}</p>
                               </div>
                               <button onClick={() => setCustomFields(customFields.filter(f => f.id !== field.id))} className="text-slate-500 hover:text-rose-400 p-1.5 rounded transition-colors">
@@ -461,7 +461,7 @@ export function Settings() {
                               placeholder="nombre_variable" 
                               value={newCustomField.name} 
                               onChange={e => setNewCustomField({...newCustomField, name: e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '')})}
-                              className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 h-9 font-mono text-[11px]" 
+                              className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 h-9 font-mono text-[11px]" 
                             />
                           </div>
                           <div className="flex-1">
@@ -470,7 +470,7 @@ export function Settings() {
                               placeholder="Breve descripción del campo" 
                               value={newCustomField.description} 
                               onChange={e => setNewCustomField({...newCustomField, description: e.target.value})}
-                              className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 h-9" 
+                              className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 h-9" 
                             />
                           </div>
                           <button 
@@ -479,7 +479,7 @@ export function Settings() {
                               setCustomFields([...customFields, { id: Date.now().toString(), name: newCustomField.name, description: newCustomField.description }]);
                               setNewCustomField({ name: '', description: '' });
                             }}
-                            className="bg-cyan-600/20 border border-cyan-500/50 text-cyan-400 hover:bg-cyan-500 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all disabled:opacity-50 h-9 whitespace-nowrap">
+                            className="bg-blue-600/20 border border-blue-500/50 text-blue-400 hover:bg-blue-500 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all disabled:opacity-50 h-9 whitespace-nowrap">
                             Añadir Campo
                           </button>
                         </div>
@@ -502,24 +502,24 @@ export function Settings() {
                 
                 <div className="p-6 grid gap-6">
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                     <div className="glass-panel p-5 rounded-xl border border-white/5 relative overflow-hidden group hover:border-cyan-500/30 transition-colors">
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><Lock className="w-16 h-16 text-cyan-400" /></div>
+                     <div className="glass-panel p-5 rounded-xl border border-white/5 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
+                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><Lock className="w-16 h-16 text-blue-400" /></div>
                         <h3 className="font-semibold text-white mb-2 relative z-10">Autenticación de Dos Factores (2FA)</h3>
                         <p className="text-xs text-slate-400 mb-4 max-w-[200px] relative z-10">Requiere un código adicional para iniciar sesión en cuentas de administradores.</p>
                         <div className="relative z-10">
                           <label className="relative inline-flex items-center cursor-pointer">
                             <input type="checkbox" className="sr-only peer" defaultChecked />
-                            <div className="w-9 h-5 rounded-full peer-focus:outline-none transition-all bg-cyan-500 shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+                            <div className="w-9 h-5 rounded-full peer-focus:outline-none transition-all bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
                             <div className="absolute left-[2px] top-[2px] bg-white border-gray-300 border rounded-full h-4 w-4 transition-all translate-x-full border-white"></div>
                           </label>
                         </div>
                      </div>
-                     <div className="glass-panel p-5 rounded-xl border border-white/5 relative overflow-hidden group hover:border-cyan-500/30 transition-colors">
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><Smartphone className="w-16 h-16 text-cyan-400" /></div>
+                     <div className="glass-panel p-5 rounded-xl border border-white/5 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
+                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><Smartphone className="w-16 h-16 text-blue-400" /></div>
                         <h3 className="font-semibold text-white mb-2 relative z-10">Restricción de Dispositivos</h3>
                         <p className="text-xs text-slate-400 mb-4 max-w-[200px] relative z-10">Limitar el acceso al sistema solo desde IPs o dispositivos de la compañía.</p>
                         <div className="relative z-10">
-                          <button className="text-xs border border-white/10 hover:border-cyan-500/50 bg-slate-900/50 px-3 py-1.5 rounded-lg text-slate-300 transition-colors">
+                          <button className="text-xs border border-white/10 hover:border-blue-500/50 bg-slate-900/50 px-3 py-1.5 rounded-lg text-slate-300 transition-colors">
                             Configurar Reglas
                           </button>
                         </div>
@@ -558,14 +558,14 @@ export function Settings() {
 
                    <div className="glass-panel rounded-xl overflow-hidden border border-white/10">
                     <div className="px-5 py-4 border-b border-white/5 bg-black/20 flex items-center gap-2">
-                       <History className="w-4 h-4 text-cyan-400" />
+                       <History className="w-4 h-4 text-blue-400" />
                        <h3 className="font-medium text-sm text-slate-200">Log de Auditoría</h3>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-left text-sm whitespace-nowrap">
                         <tbody className="divide-y divide-white/5">
                           {SECURITY_LOGS.map(log => (
-                            <tr key={log.id} className="hover:bg-cyan-500/5 transition-colors">
+                            <tr key={log.id} className="hover:bg-blue-500/5 transition-colors">
                               <td className="px-5 py-3">
                                 <div className="font-medium text-slate-200">{log.event}</div>
                               </td>
@@ -589,7 +589,7 @@ export function Settings() {
             ) : (
                <div className="p-6 flex flex-col items-center justify-center text-center h-[400px] text-slate-500 relative">
                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none"></div>
-                 <Shield className="w-16 h-16 text-cyan-900 mb-4 opacity-50 drop-shadow-[0_0_15px_rgba(6,182,212,0.2)]" />
+                 <Shield className="w-16 h-16 text-blue-900 mb-4 opacity-50 drop-shadow-[0_0_15px_rgba(59,130,246,0.2)]" />
                  <h3 className="text-lg font-medium text-slate-300 mb-1 tracking-tight">Módulo en construcción</h3>
                  <p className="max-w-xs text-sm font-light">Pronto podrás configurar esta sección del sistema inteligente aquí.</p>
                </div>
@@ -611,7 +611,7 @@ export function Settings() {
                         value={newUserEmail}
                         onChange={(e) => setNewUserEmail(e.target.value)}
                         placeholder="correo@empresa.com"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-cyan-500 outline-none"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none"
                       />
                     </div>
                     <div>
@@ -619,7 +619,7 @@ export function Settings() {
                       <select 
                         value={newUserRole}
                         onChange={(e) => setNewUserRole(e.target.value)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-cyan-500 outline-none appearance-none"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none appearance-none"
                       >
                         {ROLES.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
                       </select>
@@ -633,7 +633,7 @@ export function Settings() {
                           triggerEvent('user_invited', { title: 'Invitación Enviada', message: `Se ha invitado a ${newUserEmail}.`, type: 'success' });
                         }
                       }}
-                      className="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold py-2 rounded-lg text-sm mt-2 transition-colors"
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold py-2 rounded-lg text-sm mt-2 transition-colors"
                     >
                       Enviar Invitación
                     </button>
@@ -658,7 +658,7 @@ export function Settings() {
                         value={newFlowName}
                         onChange={(e) => setNewFlowName(e.target.value)}
                         placeholder="Ej: Auto-rechazo por salario"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-cyan-500 outline-none"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none"
                       />
                     </div>
                     <div>
@@ -668,7 +668,7 @@ export function Settings() {
                         value={newFlowTrigger}
                         onChange={(e) => setNewFlowTrigger(e.target.value)}
                         placeholder="Ej: Candidato avanza a entrevista"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-cyan-500 outline-none"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none"
                       />
                     </div>
                     <div>
@@ -678,7 +678,7 @@ export function Settings() {
                         value={newFlowAction}
                         onChange={(e) => setNewFlowAction(e.target.value)}
                         placeholder="Ej: Enviar mensaje slack"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-cyan-500 outline-none"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:border-blue-500 outline-none"
                       />
                     </div>
                     <button 
@@ -689,7 +689,7 @@ export function Settings() {
                           setNewFlowName('');
                         }
                       }}
-                      className="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold py-2 rounded-lg text-sm mt-2 transition-colors"
+                      className="w-full bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold py-2 rounded-lg text-sm mt-2 transition-colors"
                     >
                       Guardar Flujo
                     </button>

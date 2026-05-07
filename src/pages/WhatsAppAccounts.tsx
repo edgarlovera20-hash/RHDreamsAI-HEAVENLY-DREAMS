@@ -1,9 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
-import { Plus, Search, Smartphone, Zap, QrCode, Trash2, CheckCircle2, RotateCcw, X, SmartphoneNfc, MessageSquare, Clock, AlertCircle, Loader2 } from "lucide-react";
+import { Search, Smartphone, Zap, QrCode, Trash2, CheckCircle2, RotateCcw, X, SmartphoneNfc, MessageSquare, Clock, AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { api, Account, Agent } from "@/lib/api";
+import { Stepper, StepperStep } from "@/components/Stepper";
 
 type ModalStep = 'info' | 'qr' | 'success' | 'error';
+
+const LINK_STEPS: StepperStep[] = [
+  { id: 'info', label: 'Datos', description: 'Nombre y agente' },
+  { id: 'qr', label: 'Escanear', description: 'Código QR' },
+  { id: 'success', label: 'Conectado', description: 'Listo' },
+];
+
+function modalStepIndex(step: ModalStep): number {
+  if (step === 'info') return 0;
+  if (step === 'qr') return 1;
+  if (step === 'success') return 2;
+  return 1; // error → highlight QR step as errored
+}
 
 const STATUS_LABEL: Record<string, string> = {
   pending: 'Inicializando',
@@ -191,7 +205,7 @@ export function WhatsAppAccounts() {
   }
 
   return (
-    <div className="flex flex-col gap-6 h-full pb-8">
+    <div className="page-enter flex flex-col gap-6 h-full pb-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div style={{ fontFamily: 'Georgia' }}>
           <h1 className="text-2xl font-semibold tracking-tight text-white mt-2">Cuentas de WhatsApp</h1>
@@ -296,7 +310,7 @@ export function WhatsAppAccounts() {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => openAutomationConfig(account)}
-                      className="text-slate-500 hover:text-cyan-400 p-1.5 rounded-md hover:bg-cyan-500/10 transition-colors"
+                      className="text-slate-500 hover:text-blue-400 p-1.5 rounded-md hover:bg-blue-500/10 transition-colors"
                       title="Configurar Mensajes Automáticos"
                     >
                       <MessageSquare className="w-4 h-4" />
@@ -330,9 +344,17 @@ export function WhatsAppAccounts() {
               <X className="w-5 h-5" />
             </button>
 
+            <div className="mb-6 mt-2">
+              <Stepper
+                steps={LINK_STEPS}
+                current={modalStepIndex(modalStep)}
+                errorIndex={modalStep === 'error' ? 1 : undefined}
+              />
+            </div>
+
             {modalStep === 'info' && (
               <>
-                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-500 mb-6 flex items-center gap-2">
+                <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-500 mb-6 flex items-center gap-2">
                   <SmartphoneNfc className="w-6 h-6 text-emerald-400" />
                   Vincular WhatsApp
                 </h2>
@@ -351,7 +373,7 @@ export function WhatsAppAccounts() {
 
                   <div>
                     <label className="text-sm text-slate-300 mb-1.5 block flex items-center gap-1">
-                      <Zap className="w-4 h-4 text-cyan-400" />
+                      <Zap className="w-4 h-4 text-blue-400" />
                       Vincular con Agente AI
                     </label>
                     <div className="relative">
@@ -480,7 +502,7 @@ export function WhatsAppAccounts() {
               <X className="w-5 h-5" />
             </button>
             <h3 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-cyan-400" />
+              <MessageSquare className="w-5 h-5 text-blue-400" />
               Mensajería Automática
             </h3>
             <p className="text-slate-400 text-sm mb-6">
@@ -494,7 +516,7 @@ export function WhatsAppAccounts() {
                 <textarea
                   value={welcomeMessage}
                   onChange={(e) => setWelcomeMessage(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all resize-none h-24 font-mono"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none h-24 font-mono"
                   placeholder="Escribe el mensaje de bienvenida..."
                 />
               </div>
@@ -518,7 +540,7 @@ export function WhatsAppAccounts() {
               <button onClick={() => setAccountToAutomate(null)} className="px-5 py-2.5 rounded-xl font-medium text-sm text-slate-300 hover:bg-white/5 transition-colors">
                 Cancelar
               </button>
-              <button onClick={saveAutomationConfig} className="bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-semibold px-6 py-2.5 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+              <button onClick={saveAutomationConfig} className="bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold px-6 py-2.5 rounded-xl text-sm transition-all shadow-[0_0_15px_rgba(96,165,250,0.2)]">
                 Guardar Plantillas
               </button>
             </div>

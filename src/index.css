@@ -4,11 +4,25 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* RHDreams design tokens */
+  --rhd-accent: 59, 130, 246;        /* blue-500 */
+  --rhd-accent-bright: 96, 165, 250; /* blue-400 */
+  --rhd-accent-deep: 37, 99, 235;    /* blue-600 */
+  --rhd-success: 16, 185, 129;       /* emerald-500 */
+  --rhd-warn: 245, 158, 11;          /* amber-500 */
+  --rhd-danger: 244, 63, 94;         /* rose-500 */
+
+  --rhd-bg-base: #020617;            /* slate-950 */
+  --rhd-bg-elevated: rgba(15, 23, 42, 0.6); /* slate-900 / .6 */
+  --rhd-bg-glass: rgba(9, 9, 11, 0.4);      /* zinc-950 / .4 */
+  --rhd-border-faint: rgba(255, 255, 255, 0.05);
+  --rhd-border-strong: rgba(255, 255, 255, 0.1);
 }
 
 body {
-  background-color: #050505;
-  color: #e2e8f0; 
+  background-color: var(--rhd-bg-base);
+  color: #e2e8f0;
   margin: 0;
   height: 100vh;
   height: 100dvh;
@@ -25,31 +39,120 @@ body {
   .light-theme {
     filter: invert(1) hue-rotate(180deg);
   }
-  .light-theme img, 
+  .light-theme img,
   .light-theme svg.lucide,
-  .light-theme video {
+  .light-theme video,
+  .light-theme canvas {
     filter: invert(1) hue-rotate(180deg);
   }
-  
+
+  /* Glass container — semitransparent panel with backdrop blur */
   .glass-panel {
-    background-color: rgba(15, 17, 21, 0.6);
+    background-color: var(--rhd-bg-glass);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 1px 1px rgba(255,255,255,0.02), 0 8px 32px rgba(0,0,0,0.4);
+    border: 1px solid var(--rhd-border-faint);
+    box-shadow:
+      inset 0 1px 1px rgba(255, 255, 255, 0.03),
+      0 8px 32px rgba(0, 0, 0, 0.45);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .glass-panel-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .glass-panel-hover:hover {
-    background-color: rgba(22, 25, 33, 0.8);
-    border-color: rgba(6, 182, 212, 0.4);
-    box-shadow: 0 0 24px rgba(6, 182, 212, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    background-color: rgba(15, 23, 42, 0.78);
+    border-color: rgba(var(--rhd-accent), 0.3);
+    box-shadow:
+      0 8px 30px rgba(var(--rhd-accent), 0.15),
+      inset 0 1px 1px rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
   }
+
+  /* Glow utilities */
+  .glow-accent {
+    box-shadow: 0 0 20px rgba(var(--rhd-accent), 0.35);
+  }
+  .glow-accent-soft {
+    box-shadow: 0 0 12px rgba(var(--rhd-accent), 0.2);
+  }
+  .glow-text-accent {
+    text-shadow: 0 0 8px rgba(var(--rhd-accent), 0.55);
+  }
+
+  /* Page mount animation */
+  .page-enter {
+    animation: rhd-fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Stepper line fill */
+  .stepper-track {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .stepper-fill {
+    background: linear-gradient(90deg, rgba(var(--rhd-accent-bright), 0.9), rgba(var(--rhd-accent), 0.9));
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Page mount keyframes */
+@keyframes rhd-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle, focused pulse for "AI processing" indicators */
+@keyframes rhd-pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.animate-pulse-soft {
+  animation: rhd-pulse-soft 2.4s ease-in-out infinite;
+}
+
+/* Form focus ring — soft accent glow without browser default outline */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/* Apply a soft inner+outer glow to focused fields that don't already
+   declare a custom focus style with `focus:` Tailwind utilities. */
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  border-color: rgba(var(--rhd-accent), 0.55);
+  box-shadow:
+    0 0 0 1px rgba(var(--rhd-accent), 0.4),
+    0 0 12px rgba(var(--rhd-accent), 0.25),
+    inset 0 0 6px rgba(var(--rhd-accent), 0.15);
+}
+
+/* Buttons — slight scale-up on hover for primary CTAs that opt-in
+   via the .cta class. Other buttons stay calm. */
+.cta {
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.cta:hover:not(:disabled) {
+  transform: scale(1.03);
+  box-shadow: 0 6px 24px rgba(var(--rhd-accent), 0.35);
+}
+.cta:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Stronger pulse for "AI is processing" badges */
+@keyframes rhd-ai-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--rhd-accent), 0.55); opacity: 1; }
+  50% { box-shadow: 0 0 0 8px rgba(var(--rhd-accent), 0); opacity: 0.85; }
+}
+.ai-pulse {
+  animation: rhd-ai-pulse 2s ease-in-out infinite;
 }
 
 .styled-scrollbar::-webkit-scrollbar {
@@ -64,6 +167,13 @@ body {
   border-radius: 4px;
 }
 .styled-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(6, 182, 212, 0.5);
+  background-color: rgba(var(--rhd-accent), 0.55);
 }
 
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
