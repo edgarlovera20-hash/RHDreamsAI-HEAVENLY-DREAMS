@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
+import bcrypt from 'bcryptjs';
 
 const DATA_DIR = path.resolve(process.cwd(), 'server', 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -408,4 +409,16 @@ if (tplCount === 0) {
   for (const [id, name, role, desc, prompt, color, caps] of SEEDS) {
     insertTpl.run(id, name, role, desc, prompt, color, JSON.stringify(caps), seedNow);
   }
+}
+
+// Seed the default admin account (idempotent — only runs if it doesn't exist).
+// Identifier is stored lowercased because findUserByEmail() lowercases lookups.
+const DEFAULT_USER = { id: 'usr-default-edlovera97', email: 'edlovera97', name: 'Edgar Lovera', password: 'Hdr200710' };
+const existsDefault = db.prepare('SELECT id FROM users WHERE email = ?').get(DEFAULT_USER.email) as { id: string } | undefined;
+if (!existsDefault) {
+  const hash = bcrypt.hashSync(DEFAULT_USER.password, 10);
+  db.prepare(
+    'INSERT INTO users (id, email, name, password_hash, role, created_at) VALUES (?, ?, ?, ?, ?, ?)'
+  ).run(DEFAULT_USER.id, DEFAULT_USER.email, DEFAULT_USER.name, hash, 'admin', Date.now());
+  console.log(`[rhdreams db] seeded default admin user: ${DEFAULT_USER.email}`);
 }

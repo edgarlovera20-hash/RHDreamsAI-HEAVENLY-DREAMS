@@ -120,15 +120,18 @@ export function Login() {
 
         <form onSubmit={submit} className="space-y-4">
           <div>
-            <label className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">Email</label>
+            <label className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">
+              {showRegister ? 'Email' : 'Email o usuario'}
+            </label>
             <input
-              type="email"
+              type={showRegister ? 'email' : 'text'}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              autoComplete="email"
+              autoComplete="username"
+              inputMode={showRegister ? 'email' : 'text'}
               className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-              placeholder="tu@email.com"
+              placeholder={showRegister ? 'tu@email.com' : 'tu@email.com o usuario'}
             />
           </div>
 
