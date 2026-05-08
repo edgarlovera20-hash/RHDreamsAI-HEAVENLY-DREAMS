@@ -1,182 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* RHDreams design tokens - Executive Blue Theme */
-  --rhd-accent: 56, 189, 248;        /* sky-400 */
-  --rhd-accent-bright: 125, 211, 252; /* sky-300 */
-  --rhd-accent-deep: 14, 165, 233;    /* sky-500 */
-  --rhd-success: 52, 211, 153;       /* emerald-400 */
-  --rhd-warn: 251, 191, 36;          /* amber-400 */
-  --rhd-danger: 251, 113, 133;       /* rose-400 */
+  /* Theme variables mapped to CSS custom properties for easy toggling */
+  --color-brand-bg: var(--brand-bg);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-surface-hover: var(--brand-surface-hover);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-purple: var(--brand-purple);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
 
-  --rhd-bg-base: #0a192f;            /* Deep Executive Blue */
-  --rhd-bg-elevated: rgba(17, 34, 64, 0.7); /* Deep Navy / .7 */
-  --rhd-bg-glass: rgba(10, 25, 47, 0.5);    /* Executive Blue / .5 */
-  --rhd-border-faint: rgba(56, 189, 248, 0.1);
-  --rhd-border-strong: rgba(56, 189, 248, 0.2);
+  /* Deprecated theme compatibility mapped to CSS custom properties */
+  --color-tema-negro: var(--tema-negro);
+  --color-tema-profundo: var(--tema-profundo);
+  --color-tema-neon: var(--tema-neon);
+  --color-tema-electrico: var(--tema-electrico);
+  --color-tema-matriz: var(--tema-matriz);
+  --color-tema-texto: var(--tema-texto);
+  --color-border-color: var(--border-color);
 }
 
-body {
-  background-color: var(--rhd-bg-base);
-  color: #e2e8f0;
-  margin: 0;
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
-  transition: filter 0.3s ease, background-color 0.3s ease;
-  font-family: var(--font-sans);
+:root {
+  /* DARK THEME - Dashboard UI */
+  --brand-bg: #090e17;
+  --brand-surface: #111726;
+  --brand-surface-hover: #1a2235;
+  --brand-primary: #00b4d8;
+  --brand-accent: #00d588;
+  --brand-purple: #9d4edd;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --border-color: #1a2235;
+
+  /* Deprecated theme compatibility */
+  --tema-negro: #090e17;
+  --tema-profundo: #0d131f; 
+  --tema-neon: #00b4d8;
+  --tema-electrico: #1e3a8a;
+  --tema-matriz: #00d588;
+  --tema-texto: #ffffff;
 }
 
-#root {
-  height: 100%;
+:root.light {
+  /* LIGHT THEME (Requested: #00aeef background) */
+  --brand-bg: #00aeef;
+  --brand-surface: rgba(255, 255, 255, 0.9);
+  --brand-surface-hover: rgba(255, 255, 255, 1);
+  --brand-primary: #1e40af;
+  --brand-accent: #047857;
+  --brand-purple: #7e22ce;
+  --text-main: #000000;
+  --text-muted: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.4);
+
+  --tema-negro: #00aeef;
+  --tema-profundo: #009bcc; 
+  --tema-neon: #ffffff;
+  --tema-electrico: rgba(255, 255, 255, 0.3);
+  --tema-matriz: #000000;
+  --tema-texto: #ffffff;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-text-main font-sans antialiased;
+  }
 }
 
 @layer components {
-  .light-theme {
-    filter: invert(1) hue-rotate(180deg);
-  }
-  .light-theme img,
-  .light-theme svg.lucide,
-  .light-theme video,
-  .light-theme canvas {
-    filter: invert(1) hue-rotate(180deg);
+  /* Compatibility for panel-de-vidrio */
+  .panel-de-vidrio {
+    @apply bg-brand-surface border border-brand-surface-hover shadow-xl rounded-2xl;
   }
 
-  /* Glass container — semitransparent panel with backdrop blur */
-  .glass-panel {
-    background-color: var(--rhd-bg-glass);
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--rhd-border-strong);
-    box-shadow:
-      inset 0 1px 1px rgba(255, 255, 255, 0.05),
-      0 12px 40px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Hidden Scrollbars */
+  .hide-scrollbar {
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
   }
-
-  .glass-panel-hover:hover {
-    background-color: rgba(17, 34, 64, 0.85);
-    border-color: rgba(var(--rhd-accent), 0.5);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.6),
-      0 0 20px rgba(var(--rhd-accent), 0.15),
-      inset 0 1px 1px rgba(255, 255, 255, 0.1);
-    transform: translateY(-4px) scale(1.01);
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
-
-  /* Glow utilities */
-  .glow-accent {
-    box-shadow: 0 0 20px rgba(var(--rhd-accent), 0.35);
+  
+  /* Old Scrollbar hiding */
+  .ocultar-barra-desplazamiento {
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
   }
-  .glow-accent-soft {
-    box-shadow: 0 0 12px rgba(var(--rhd-accent), 0.2);
-  }
-  .glow-text-accent {
-    text-shadow: 0 0 8px rgba(var(--rhd-accent), 0.55);
-  }
-
-  /* Page mount animation */
-  .page-enter {
-    animation: rhd-fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  /* Stepper line fill */
-  .stepper-track {
-    background: rgba(255, 255, 255, 0.06);
-  }
-  .stepper-fill {
-    background: linear-gradient(90deg, rgba(var(--rhd-accent-bright), 0.9), rgba(var(--rhd-accent), 0.9));
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .ocultar-barra-desplazamiento::-webkit-scrollbar {
+    display: none;
   }
 }
 
-.app-container {
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
+/* Grid background for main components */
+.grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Page mount keyframes */
-@keyframes rhd-fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.text-brillo {
+  text-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
 }
 
-/* Subtle, focused pulse for "AI processing" indicators */
-@keyframes rhd-pulse-soft {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-.animate-pulse-soft {
-  animation: rhd-pulse-soft 2.4s ease-in-out infinite;
-}
-
-/* Form focus ring — soft accent glow without browser default outline */
-input:focus, textarea:focus, select:focus {
-  outline: none;
-}
-
-/* Apply a soft inner+outer glow to focused fields that don't already
-   declare a custom focus style with `focus:` Tailwind utilities. */
-input:focus-visible, textarea:focus-visible, select:focus-visible {
-  border-color: rgba(var(--rhd-accent), 0.55);
-  box-shadow:
-    0 0 0 1px rgba(var(--rhd-accent), 0.4),
-    0 0 12px rgba(var(--rhd-accent), 0.25),
-    inset 0 0 6px rgba(var(--rhd-accent), 0.15);
-}
-
-/* Buttons — slight scale-up on hover for primary CTAs that opt-in
-   via the .cta class. Other buttons stay calm. */
-.cta {
-  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-.cta:hover:not(:disabled) {
-  transform: scale(1.03);
-  box-shadow: 0 6px 24px rgba(var(--rhd-accent), 0.35);
-}
-.cta:active:not(:disabled) {
-  transform: scale(0.98);
-}
-
-/* Stronger pulse for "AI is processing" badges */
-@keyframes rhd-ai-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--rhd-accent), 0.55); opacity: 1; }
-  50% { box-shadow: 0 0 0 8px rgba(var(--rhd-accent), 0); opacity: 0.85; }
-}
-.ai-pulse {
-  animation: rhd-ai-pulse 2s ease-in-out infinite;
-}
-
-.styled-scrollbar::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-.styled-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.styled-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-.styled-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(var(--rhd-accent), 0.55);
-}
-
-/* Respect users who prefer reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    transition-duration: 0.001ms !important;
-  }
-}
