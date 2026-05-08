@@ -1,8 +1,8 @@
-import { EventEmitter } from 'events';
+import { EventEmitter } from 'node:events';
 import { Request, Response } from 'express';
 
 export type AppEvent = {
-  type: 'whatsapp_message' | 'account_status' | 'agent_activity' | 'system';
+  type: 'whatsapp_message' | 'account_status' | 'agent_activity' | 'system' | 'google' | 'facebook' | 'instagram' | 'tiktok' | 'custom_app';
   title: string;
   message: string;
   level?: 'info' | 'success' | 'warning' | 'error';

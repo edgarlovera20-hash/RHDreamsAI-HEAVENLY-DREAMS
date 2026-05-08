@@ -12,6 +12,7 @@ import { Login } from '@/pages/Login';
 import { NotificationProvider } from '@/contexts/NotificationContext';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { NetworkBackground } from '@/components/layout/NetworkBackground';
 
 function LoginRoute() {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <AuthProvider>
       <NotificationProvider>
+        <NetworkBackground />
         <Router>
           <Routes>
             <Route path="/login" element={<LoginRoute />} />

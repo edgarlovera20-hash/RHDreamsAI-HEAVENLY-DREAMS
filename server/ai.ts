@@ -3,13 +3,15 @@ import OpenAI from 'openai';
 import { GoogleGenAI } from '@google/genai';
 import db, { ProviderRow } from './db.js';
 
-export type ProviderKind = 'anthropic' | 'openai' | 'gemini' | 'groq' | 'openai-compatible';
+export type ProviderKind = 'anthropic' | 'openai' | 'gemini' | 'groq' | 'deepseek' | 'ollama' | 'openai-compatible';
 
 export const PROVIDER_DEFAULTS: Record<ProviderKind, { label: string; model: string; baseUrl?: string }> = {
-  anthropic: { label: 'Anthropic Claude', model: 'claude-sonnet-4-6' },
+  anthropic: { label: 'Anthropic Claude', model: 'claude-3-5-sonnet-20240620' },
   openai: { label: 'OpenAI', model: 'gpt-4o-mini' },
   gemini: { label: 'Google Gemini', model: 'gemini-2.0-flash' },
   groq: { label: 'Groq', model: 'llama-3.3-70b-versatile', baseUrl: 'https://api.groq.com/openai/v1' },
+  deepseek: { label: 'DeepSeek', model: 'deepseek-chat', baseUrl: 'https://api.deepseek.com' },
+  ollama: { label: 'Ollama (Local)', model: 'llama3', baseUrl: 'http://localhost:11434/v1' },
   'openai-compatible': { label: 'OpenAI Compatible', model: 'gpt-4o-mini' },
 };
 
@@ -69,6 +71,8 @@ export async function generateText(
 
     case 'openai':
     case 'groq':
+    case 'deepseek':
+    case 'ollama':
     case 'openai-compatible': {
       const client = new OpenAI({
         apiKey: provider.api_key,

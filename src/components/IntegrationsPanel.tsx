@@ -13,21 +13,31 @@ const INTEGRATION_TYPES: {
 }[] = [
   { id: 'slack', label: 'Slack', description: 'Envía eventos a un canal vía Incoming Webhook.', Icon: Slack, color: 'bg-purple-500/20 text-purple-300 border-purple-500/40', placeholder: 'https://hooks.slack.com/services/T.../B.../...' },
   { id: 'discord', label: 'Discord', description: 'Webhook de canal de Discord.', Icon: MessageSquare, color: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40', placeholder: 'https://discord.com/api/webhooks/...' },
+  { id: 'google', label: 'Google App', description: 'Conecta con Google Calendar, Sheets o Gmail.', Icon: Workflow, color: 'bg-blue-500/20 text-blue-300 border-blue-500/40', placeholder: 'URL de tu endpoint o script de Google' },
+  { id: 'facebook', label: 'Facebook / Meta', description: 'Integración con Meta Ads o Messenger.', Icon: MessageSquare, color: 'bg-blue-600/20 text-blue-300 border-blue-600/40', placeholder: 'URL de tu endpoint de Meta' },
+  { id: 'instagram', label: 'Instagram', description: 'Eventos de Instagram Direct o comentarios.', Icon: MessageSquare, color: 'bg-pink-500/20 text-pink-300 border-pink-500/40', placeholder: 'URL de tu endpoint de Instagram' },
+  { id: 'tiktok', label: 'TikTok', description: 'Eventos de TikTok Business.', Icon: Zap, color: 'bg-black text-white border-white/20', placeholder: 'URL de tu endpoint de TikTok' },
   { id: 'zapier', label: 'Zapier', description: 'Catch Hook de Zapier para disparar Zaps.', Icon: Zap, color: 'bg-amber-500/20 text-amber-300 border-amber-500/40', placeholder: 'https://hooks.zapier.com/hooks/catch/...' },
   { id: 'n8n', label: 'n8n', description: 'Webhook de un workflow de n8n.', Icon: Workflow, color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40', placeholder: 'https://n8n.midominio.com/webhook/...' },
   { id: 'make', label: 'Make (Integromat)', description: 'Custom Webhook de un escenario de Make.', Icon: Workflow, color: 'bg-rose-500/20 text-rose-300 border-rose-500/40', placeholder: 'https://hook.eu1.make.com/...' },
-  { id: 'webhook', label: 'Webhook genérico', description: 'POST JSON a cualquier URL HTTPS.', Icon: Webhook, color: 'bg-blue-500/20 text-blue-300 border-blue-500/40', placeholder: 'https://api.midominio.com/eventos' },
+  { id: 'custom_app', label: 'App Propia', description: 'Conecta tus propias aplicaciones personalizadas.', Icon: Webhook, color: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40', placeholder: 'https://tu-app.com/api/rhdreams' },
+  { id: 'webhook', label: 'Webhook genérico', description: 'POST JSON a cualquier URL HTTPS.', Icon: Webhook, color: 'bg-slate-500/20 text-slate-300 border-slate-500/40', placeholder: 'https://api.midominio.com/eventos' },
 ];
 
 const ALL_EVENTS = [
   { id: 'whatsapp_message', label: 'Mensajes WhatsApp entrantes' },
   { id: 'account_status', label: 'Cambios de estado en cuentas' },
   { id: 'agent_activity', label: 'Actividad de agentes (respuestas)' },
+  { id: 'google', label: 'Eventos de Google' },
+  { id: 'facebook', label: 'Eventos de Facebook' },
+  { id: 'instagram', label: 'Eventos de Instagram' },
+  { id: 'tiktok', label: 'Eventos de TikTok' },
+  { id: 'custom_app', label: 'Eventos de App Propia' },
   { id: 'system', label: 'Eventos del sistema' },
 ];
 
 function typeMeta(type: IntegrationType) {
-  return INTEGRATION_TYPES.find((t) => t.id === type) || INTEGRATION_TYPES[INTEGRATION_TYPES.length - 1];
+  return INTEGRATION_TYPES.find((t) => t.id === type) || INTEGRATION_TYPES.at(-1)!;
 }
 
 function formatDate(ts: number | null): string {
@@ -257,6 +267,8 @@ export function IntegrationsPanel() {
                         </button>
                         <button
                           onClick={() => remove(it.id)}
+                          title="Eliminar integración"
+                          aria-label="Eliminar integración"
                           className="p-2 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -274,7 +286,14 @@ export function IntegrationsPanel() {
           <div className="glass-panel p-5 rounded-xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-white">Nueva Integración</h3>
-              <button onClick={() => setShowForm(false)} className="text-slate-400 hover:text-white"><X className="w-4 h-4" /></button>
+              <button 
+                onClick={() => setShowForm(false)} 
+                title="Cerrar formulario"
+                aria-label="Cerrar formulario"
+                className="text-slate-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             <div className="grid gap-4">
@@ -304,38 +323,42 @@ export function IntegrationsPanel() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">Nombre interno</label>
-                <input
-                  type="text"
-                  value={draft.name}
-                  onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))}
-                  placeholder="Ej: #reclutamiento (Slack)"
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
-                />
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  Nombre interno
+                  <input
+                    type="text"
+                    value={draft.name}
+                    onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))}
+                    placeholder="Ej: #reclutamiento (Slack)"
+                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
+                  />
+                </label>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">URL del Webhook</label>
-                <input
-                  type="text"
-                  value={draft.url}
-                  onChange={(e) => setDraft((d) => ({ ...d, url: e.target.value }))}
-                  placeholder={draftMeta.placeholder}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
-                />
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  URL del Webhook
+                  <input
+                    type="text"
+                    value={draft.url}
+                    onChange={(e) => setDraft((d) => ({ ...d, url: e.target.value }))}
+                    placeholder={draftMeta.placeholder}
+                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
+                  />
+                </label>
               </div>
 
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1.5">
                   Secreto compartido <span className="text-slate-500">(opcional)</span>
+                  <input
+                    type="password"
+                    value={draft.secret}
+                    onChange={(e) => setDraft((d) => ({ ...d, secret: e.target.value }))}
+                    placeholder="Se enviará en la cabecera X-RHDreams-Signature"
+                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
+                  />
                 </label>
-                <input
-                  type="password"
-                  value={draft.secret}
-                  onChange={(e) => setDraft((d) => ({ ...d, secret: e.target.value }))}
-                  placeholder="Se enviará en la cabecera X-RHDreams-Signature"
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 font-mono"
-                />
               </div>
 
               <div>
@@ -343,18 +366,27 @@ export function IntegrationsPanel() {
                 <div className="grid gap-2">
                   {ALL_EVENTS.map((ev) => {
                     const checked = draft.events.includes(ev.id);
+                    const checkboxId = `ev-${ev.id}`;
                     return (
-                      <label
-                        key={ev.id}
-                        className={cn(
-                          "flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-colors border",
-                          checked ? "bg-blue-500/10 border-blue-500/30" : "bg-slate-900/40 border-slate-700/50 hover:border-slate-600"
-                        )}
-                      >
-                        <input type="checkbox" checked={checked} onChange={() => toggleEvent(ev.id)} className="accent-blue-500" />
-                        <span className="text-sm text-slate-200">{ev.label}</span>
-                        <code className="ml-auto text-[10px] text-slate-500 font-mono">{ev.id}</code>
-                      </label>
+                      <div key={ev.id}>
+                        <label
+                          htmlFor={checkboxId}
+                          className={cn(
+                            "flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-colors border",
+                            checked ? "bg-blue-500/10 border-blue-500/30" : "bg-slate-900/40 border-slate-700/50 hover:border-slate-600"
+                          )}
+                        >
+                          <input 
+                            id={checkboxId}
+                            type="checkbox" 
+                            checked={checked} 
+                            onChange={() => toggleEvent(ev.id)} 
+                            className="accent-blue-500" 
+                          />
+                          <span className="text-sm text-slate-200">{ev.label}</span>
+                          <code className="ml-auto text-[10px] text-slate-500 font-mono">{ev.id}</code>
+                        </label>
+                      </div>
                     );
                   })}
                 </div>

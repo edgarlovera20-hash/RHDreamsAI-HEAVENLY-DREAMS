@@ -4,7 +4,6 @@ import {
   Menu, X, LayoutDashboard, Users, Briefcase, Settings, PieChart, Zap, ChevronRight, Home, Sun, Moon, Smartphone, MessageSquare, PanelLeftClose, PanelLeftOpen, LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { NetworkBackground } from "./NetworkBackground";
 import { NotificationsPopover } from "@/components/notifications/NotificationsPopover";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -67,8 +66,7 @@ export function AppLayout() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row font-sans text-slate-200" style={{ height: '100dvh', overflow: 'hidden' }}>
-      <NetworkBackground />
+    <div className="flex flex-col md:flex-row font-sans text-slate-200 app-container">
       {/* Mobile nav header */}
       <div className="md:hidden flex items-center justify-between glass-panel p-3 shrink-0 m-2 rounded-xl relative z-40">
         <div className="flex flex-col">

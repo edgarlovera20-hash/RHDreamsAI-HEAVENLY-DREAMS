@@ -7,7 +7,7 @@ import { onEvent, AppEvent } from './events.js';
  * on the in-process event bus and POST a shaped payload to each subscriber.
  */
 
-export type IntegrationType = 'webhook' | 'slack' | 'discord' | 'zapier' | 'n8n' | 'make';
+export type IntegrationType = 'webhook' | 'slack' | 'discord' | 'zapier' | 'n8n' | 'make' | 'google' | 'facebook' | 'instagram' | 'tiktok' | 'custom_app';
 
 export interface IntegrationConfig {
   url: string;
@@ -26,7 +26,7 @@ export interface PublicIntegration {
   lastError: string | null;
 }
 
-const ALLOWED_TYPES: IntegrationType[] = ['webhook', 'slack', 'discord', 'zapier', 'n8n', 'make'];
+const ALLOWED_TYPES = new Set<IntegrationType>(['webhook', 'slack', 'discord', 'zapier', 'n8n', 'make', 'google', 'facebook', 'instagram', 'tiktok', 'custom_app']);
 
 function rowToPublic(row: IntegrationRow): PublicIntegration {
   let cfg: IntegrationConfig = { url: '' };
@@ -67,7 +67,7 @@ export interface CreateIntegrationInput {
 }
 
 export function createIntegration(input: CreateIntegrationInput): PublicIntegration {
-  if (!ALLOWED_TYPES.includes(input.type)) {
+  if (!ALLOWED_TYPES.has(input.type)) {
     throw new Error(`Tipo de integración no soportado: ${input.type}`);
   }
   if (!input.url || !/^https?:\/\//.test(input.url)) {
@@ -92,9 +92,9 @@ export function updateIntegration(id: string, patch: Partial<CreateIntegrationIn
   } catch {}
   const newCfg: IntegrationConfig = {
     url: patch.url ?? cfg.url,
-    secret: patch.secret !== undefined ? patch.secret : cfg.secret,
+    secret: patch.secret ?? cfg.secret,
   };
-  const newEvents = patch.events !== undefined ? patch.events : JSON.parse(row.events || '[]');
+  const newEvents = patch.events ?? JSON.parse(row.events || '[]');
   db.prepare(
     `UPDATE integrations
      SET name = COALESCE(?, name),
@@ -115,11 +115,16 @@ export function deleteIntegration(id: string): boolean {
 function shapePayload(type: IntegrationType, event: AppEvent) {
   // Slack/Discord want a `text` field; webhooks/zapier/n8n/make get the raw event.
   if (type === 'slack') {
+    let color = '#06b6d4'; // default
+    if (event.level === 'error') color = '#ef4444';
+    else if (event.level === 'warning') color = '#f59e0b';
+    else if (event.level === 'success') color = '#10b981';
+
     return {
       text: `*${event.title}*\n${event.message}`,
       attachments: [
         {
-          color: event.level === 'error' ? '#ef4444' : event.level === 'warning' ? '#f59e0b' : event.level === 'success' ? '#10b981' : '#06b6d4',
+          color,
           fields: Object.entries(event.meta || {}).map(([k, v]) => ({ title: k, value: String(v), short: true })),
         },
       ],

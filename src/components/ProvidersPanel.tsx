@@ -8,7 +8,9 @@ const PROVIDER_BRAND: Record<string, { color: string; help: string }> = {
   openai: { color: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40', help: 'API key desde platform.openai.com (sk-…)' },
   gemini: { color: 'bg-blue-500/20 text-blue-400 border-blue-500/40', help: 'API key desde aistudio.google.com/apikey' },
   groq: { color: 'bg-orange-500/20 text-orange-400 border-orange-500/40', help: 'API key desde console.groq.com' },
-  'openai-compatible': { color: 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40', help: 'Para DeepSeek, Mistral, Together, Ollama, etc. Configura baseURL.' },
+  deepseek: { color: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40', help: 'API key desde platform.deepseek.com' },
+  ollama: { color: 'bg-slate-500/20 text-slate-300 border-slate-500/40', help: 'Asegúrate que Ollama esté corriendo (http://localhost:11434)' },
+  'openai-compatible': { color: 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/40', help: 'Para Mistral, Together, Perplexity, etc. Configura baseURL.' },
 };
 
 export function ProvidersPanel() {
@@ -240,12 +242,16 @@ export function ProvidersPanel() {
                         )}
                         <button
                           onClick={() => startEdit(p)}
+                          title="Editar proveedor"
+                          aria-label="Editar proveedor"
                           className="text-xs px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:border-blue-500/50 hover:text-blue-400 transition-colors"
                         >
                           Editar
                         </button>
                         <button
                           onClick={() => remove(p.id)}
+                          title="Eliminar proveedor"
+                          aria-label="Eliminar proveedor"
                           className="p-2 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -263,81 +269,94 @@ export function ProvidersPanel() {
           <div className="glass-panel p-5 rounded-xl">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-white">{editing ? 'Editar Proveedor' : 'Nuevo Proveedor'}</h3>
-              <button onClick={cancel} className="text-slate-400 hover:text-white"><X className="w-4 h-4" /></button>
+              <button 
+                onClick={cancel} 
+                title="Cerrar formulario"
+                aria-label="Cerrar formulario"
+                className="text-slate-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             <div className="grid gap-4">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">Tipo de Proveedor</label>
-                <select
-                  disabled={!!editing}
-                  value={draft.provider}
-                  onChange={(e) => {
-                    const p = e.target.value;
-                    setDraft((d) => ({
-                      ...d,
-                      provider: p,
-                      model: kinds[p]?.model || '',
-                      baseUrl: kinds[p]?.baseUrl || '',
-                    }));
-                  }}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 appearance-none disabled:opacity-50"
-                >
-                  {providerKindKeys.map((k) => (
-                    <option key={k} value={k}>
-                      {kinds[k].label}
-                    </option>
-                  ))}
-                </select>
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  Tipo de Proveedor
+                  <select
+                    disabled={!!editing}
+                    value={draft.provider}
+                    onChange={(e) => {
+                      const p = e.target.value;
+                      setDraft((d) => ({
+                        ...d,
+                        provider: p,
+                        model: kinds[p]?.model || '',
+                        baseUrl: kinds[p]?.baseUrl || '',
+                      }));
+                    }}
+                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 appearance-none disabled:opacity-50"
+                  >
+                    {providerKindKeys.map((k) => (
+                      <option key={k} value={k}>
+                        {kinds[k].label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
                 {brand?.help && <p className="text-[11px] text-slate-500 mt-1">{brand.help}</p>}
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">Etiqueta (nombre amigable)</label>
-                <input
-                  type="text"
-                  value={draft.label}
-                  onChange={(e) => setDraft((d) => ({ ...d, label: e.target.value }))}
-                  placeholder={kinds[draft.provider]?.label || 'Mi proveedor'}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
-                />
+                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  Etiqueta (nombre amigable)
+                  <input
+                    type="text"
+                    value={draft.label}
+                    onChange={(e) => setDraft((d) => ({ ...d, label: e.target.value }))}
+                    placeholder={kinds[draft.provider]?.label || 'Mi proveedor'}
+                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
+                  />
+                </label>
               </div>
 
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1.5">
                   API Key {editing && <span className="text-slate-500">(deja vacío para mantener la actual)</span>}
+                  <input
+                    type="password"
+                    value={draft.apiKey}
+                    onChange={(e) => setDraft((d) => ({ ...d, apiKey: e.target.value }))}
+                    placeholder={editing ? '••••••••' : 'sk-...'}
+                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
+                  />
                 </label>
-                <input
-                  type="password"
-                  value={draft.apiKey}
-                  onChange={(e) => setDraft((d) => ({ ...d, apiKey: e.target.value }))}
-                  placeholder={editing ? '••••••••' : 'sk-...'}
-                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
-                />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">Modelo</label>
-                  <input
-                    type="text"
-                    value={draft.model}
-                    onChange={(e) => setDraft((d) => ({ ...d, model: e.target.value }))}
-                    placeholder={kinds[draft.provider]?.model}
-                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
-                  />
+                  <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    Modelo
+                    <input
+                      type="text"
+                      value={draft.model}
+                      onChange={(e) => setDraft((d) => ({ ...d, model: e.target.value }))}
+                      placeholder={kinds[draft.provider]?.model}
+                      className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
+                    />
+                  </label>
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-slate-400 mb-1.5">
                     Base URL <span className="text-slate-500">(opcional)</span>
+                    <input
+                      type="text"
+                      value={draft.baseUrl}
+                      onChange={(e) => setDraft((d) => ({ ...d, baseUrl: e.target.value }))}
+                      placeholder={kinds[draft.provider]?.baseUrl || 'auto'}
+                      className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
+                    />
                   </label>
-                  <input
-                    type="text"
-                    value={draft.baseUrl}
-                    onChange={(e) => setDraft((d) => ({ ...d, baseUrl: e.target.value }))}
-                    placeholder={kinds[draft.provider]?.baseUrl || 'auto'}
-                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
-                  />
                 </div>
               </div>
 

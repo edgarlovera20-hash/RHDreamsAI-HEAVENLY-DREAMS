@@ -125,6 +125,7 @@ export function Login() {
             </label>
             <input
               type={showRegister ? 'email' : 'text'}
+              name="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -155,6 +156,7 @@ export function Login() {
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
