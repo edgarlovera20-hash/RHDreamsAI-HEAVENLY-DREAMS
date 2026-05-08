@@ -84,7 +84,7 @@ export async function generateText(
         messages: [
           { role: 'system', content: systemPrompt },
           ...history.map((h) => ({
-            role: h.role as 'user' | 'assistant',
+            role: h.role,
             content: h.text,
           })),
           { role: 'user', content: userMessage },

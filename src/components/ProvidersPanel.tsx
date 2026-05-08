@@ -281,94 +281,102 @@ export function ProvidersPanel() {
 
             <div className="grid gap-4">
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                <label htmlFor="provider-type" className="block text-xs font-medium text-slate-400 mb-1.5">
                   Tipo de Proveedor
-                  <select
-                    disabled={!!editing}
-                    value={draft.provider}
-                    onChange={(e) => {
-                      const p = e.target.value;
-                      setDraft((d) => ({
-                        ...d,
-                        provider: p,
-                        model: kinds[p]?.model || '',
-                        baseUrl: kinds[p]?.baseUrl || '',
-                      }));
-                    }}
-                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 appearance-none disabled:opacity-50"
-                  >
-                    {providerKindKeys.map((k) => (
-                      <option key={k} value={k}>
-                        {kinds[k].label}
-                      </option>
-                    ))}
-                  </select>
                 </label>
+                <select
+                  id="provider-type"
+                  disabled={!!editing}
+                  value={draft.provider}
+                  onChange={(e) => {
+                    const p = e.target.value;
+                    setDraft((d) => ({
+                      ...d,
+                      provider: p,
+                      model: kinds[p]?.model || '',
+                      baseUrl: kinds[p]?.baseUrl || '',
+                    }));
+                  }}
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50 appearance-none disabled:opacity-50"
+                >
+                  {providerKindKeys.map((k) => (
+                    <option key={k} value={k}>
+                      {kinds[k].label}
+                    </option>
+                  ))}
+                </select>
                 {brand?.help && <p className="text-[11px] text-slate-500 mt-1">{brand.help}</p>}
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                <label htmlFor="provider-label" className="block text-xs font-medium text-slate-400 mb-1.5">
                   Etiqueta (nombre amigable)
-                  <input
-                    type="text"
-                    value={draft.label}
-                    onChange={(e) => setDraft((d) => ({ ...d, label: e.target.value }))}
-                    placeholder={kinds[draft.provider]?.label || 'Mi proveedor'}
-                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
-                  />
                 </label>
+                <input
+                  id="provider-label"
+                  type="text"
+                  value={draft.label}
+                  onChange={(e) => setDraft((d) => ({ ...d, label: e.target.value }))}
+                  placeholder={kinds[draft.provider]?.label || 'Mi proveedor'}
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500/50"
+                />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                <label htmlFor="provider-key" className="block text-xs font-medium text-slate-400 mb-1.5">
                   API Key {editing && <span className="text-slate-500">(deja vacío para mantener la actual)</span>}
-                  <input
-                    type="password"
-                    value={draft.apiKey}
-                    onChange={(e) => setDraft((d) => ({ ...d, apiKey: e.target.value }))}
-                    placeholder={editing ? '••••••••' : 'sk-...'}
-                    className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
-                  />
                 </label>
+                <input
+                  id="provider-key"
+                  type="password"
+                  value={draft.apiKey}
+                  onChange={(e) => setDraft((d) => ({ ...d, apiKey: e.target.value }))}
+                  placeholder={editing ? '••••••••' : 'sk-...'}
+                  className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  <label htmlFor="provider-model" className="block text-xs font-medium text-slate-400 mb-1.5">
                     Modelo
-                    <input
-                      type="text"
-                      value={draft.model}
-                      onChange={(e) => setDraft((d) => ({ ...d, model: e.target.value }))}
-                      placeholder={kinds[draft.provider]?.model}
-                      className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
-                    />
                   </label>
+                  <input
+                    id="provider-model"
+                    type="text"
+                    value={draft.model}
+                    onChange={(e) => setDraft((d) => ({ ...d, model: e.target.value }))}
+                    placeholder={kinds[draft.provider]?.model}
+                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
+                  />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  <label htmlFor="provider-url" className="block text-xs font-medium text-slate-400 mb-1.5">
                     Base URL <span className="text-slate-500">(opcional)</span>
-                    <input
-                      type="text"
-                      value={draft.baseUrl}
-                      onChange={(e) => setDraft((d) => ({ ...d, baseUrl: e.target.value }))}
-                      placeholder={kinds[draft.provider]?.baseUrl || 'auto'}
-                      className="mt-1.5 w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
-                    />
                   </label>
+                  <input
+                    id="provider-url"
+                    type="text"
+                    value={draft.baseUrl}
+                    onChange={(e) => setDraft((d) => ({ ...d, baseUrl: e.target.value }))}
+                    placeholder={kinds[draft.provider]?.baseUrl || 'auto'}
+                    className="w-full bg-slate-900/50 border border-slate-700/80 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500/50"
+                  />
                 </div>
               </div>
 
-              <label className="flex items-center gap-2 text-sm text-slate-300 mt-1 cursor-pointer">
+              <div className="flex items-center gap-2 mt-1">
                 <input
+                  id="provider-default"
                   type="checkbox"
                   checked={draft.makeDefault}
                   onChange={(e) => setDraft((d) => ({ ...d, makeDefault: e.target.checked }))}
-                  className="accent-amber-500"
+                  className="accent-amber-500 cursor-pointer"
                 />
-                Marcar como proveedor por defecto
-              </label>
+                <label htmlFor="provider-default" className="text-sm text-slate-300 cursor-pointer">
+                  Marcar como proveedor por defecto
+                </label>
+              </div>
             </div>
 
             <div className="flex justify-end gap-2 mt-6">
