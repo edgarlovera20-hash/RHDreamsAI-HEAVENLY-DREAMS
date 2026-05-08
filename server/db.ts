@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import bcrypt from 'bcryptjs';
 
 const DATA_DIR = path.resolve(process.cwd(), 'server', 'data');
@@ -413,8 +413,13 @@ if (tplCount === 0) {
 
 // Seed the default admin account (idempotent — only runs if it doesn't exist).
 // Identifier is stored lowercased because findUserByEmail() lowercases lookups.
-const DEFAULT_USER = { id: 'usr-default-edlovera97', email: 'edlovera97', name: 'Edgar Lovera', password: 'Hdr200710' };
-const existsDefault = db.prepare('SELECT id FROM users WHERE email = ?').get(DEFAULT_USER.email) as { id: string } | undefined;
+const DEFAULT_USER = {
+  id: 'usr-default-edlovera97',
+  email: process.env.DEFAULT_ADMIN_EMAIL || 'admin',
+  name: 'Admin RHDreams',
+  password: process.env.DEFAULT_ADMIN_PASSWORD || 'admin123'
+};
+const existsDefault = db.prepare('SELECT id FROM users WHERE id = ?').get(DEFAULT_USER.id) as { id: string } | undefined;
 if (!existsDefault) {
   const hash = bcrypt.hashSync(DEFAULT_USER.password, 10);
   db.prepare(

@@ -41,7 +41,7 @@ function rowToAgent(r: AgentRow) {
     systemPrompt: r.system_prompt,
     providerId: r.provider_id,
     status: r.status,
-    channels: JSON.parse(r.channels || '[]'),
+    channels: (() => { try { return JSON.parse(r.channels || '[]'); } catch { return []; } })(),
     avatarColor: r.avatar_color,
     memory: r.memory,
     conversations: r.conversations,

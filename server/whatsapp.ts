@@ -6,7 +6,7 @@ import fs from 'fs';
 import db from './db.js';
 import { generateText, getDefaultProvider } from './ai.js';
 import { emitEvent } from './events.js';
-import { saveMessage } from './agent-memory.js';
+import { saveMessage, getConversationHistory } from './agent-memory.js';
 
 export const MAX_ACTIVE_SESSIONS = 3;
 const SESSION_DIR = path.resolve(process.cwd(), 'server', 'data', 'wa-sessions');
@@ -175,10 +175,18 @@ export async function startSession(accountId: string): Promise<void> {
       if (!provider) return;
 
       const userMessage = msg.body || '';
+      const history = getConversationHistory(agent.id, msg.from, accountId);
+
+      // Send welcome message if it's a new conversation
+      if (history.length === 0 && account.welcome_message) {
+        await client.sendMessage(msg.from, account.welcome_message);
+      }
+
       const reply = await generateText(
         provider,
         agent.system_prompt || `Eres ${agent.name}. ${agent.description || ''}`,
-        userMessage
+        userMessage,
+        { history }
       );
 
       if (reply) {

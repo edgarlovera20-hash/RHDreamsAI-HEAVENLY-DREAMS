@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 import db, { MetaProviderRow, AccountRow, AgentRow } from './db.js';
 import { parseWebhookMessage, sendWhatsAppMessage } from './meta-whatsapp.js';
 import { generateText, getProvider } from './ai.js';
-import { saveMessage } from './agent-memory.js';
+import { saveMessage, getConversationHistory } from './agent-memory.js';
 import { emitEvent } from './events.js';
+import crypto from 'crypto';
 
 /**
  * Meta sends verification challenges as a GET with `hub.mode`, `hub.verify_token`,
@@ -29,12 +30,34 @@ export function metaWebhookGet(req: Request, res: Response) {
   return res.status(200).send(challenge);
 }
 
+function verifyMetaSignature(req: any) {
+  const signature = req.headers['x-hub-signature-256'];
+  const appSecret = process.env.META_APP_SECRET;
+
+  if (!appSecret) return true; // If secret not set, we skip (for local dev convenience)
+  if (!signature) return false;
+
+  const elements = signature.split('=');
+  const signatureHash = elements[1];
+  const expectedHash = crypto
+    .createHmac('sha256', appSecret)
+    .update(req.rawBody)
+    .digest('hex');
+
+  return signatureHash === expectedHash;
+}
+
 /**
  * Inbound message handler. Meta posts to this URL when a user sends a WhatsApp
  * message. We verify the payload, find the matching account/agent, generate a
  * reply, and send it back through the Graph API.
  */
 export async function metaWebhookPost(req: Request, res: Response) {
+  if (!verifyMetaSignature(req)) {
+    console.warn('[Meta Webhook] Invalid signature');
+    return res.status(401).send('Invalid signature');
+  }
+
   // Meta expects a 200 quickly; do work after responding.
   res.json({ ok: true });
 
@@ -63,10 +86,18 @@ export async function metaWebhookPost(req: Request, res: Response) {
       meta: { accountId: account.id, from: parsed.senderPhone, body: parsed.messageText },
     });
 
+    const history = getConversationHistory(agent.id, parsed.senderPhone, account.id);
+
+    // Send welcome message if it's a new conversation
+    if (history.length === 0 && account.welcome_message) {
+      await sendWhatsAppMessage(parsed.phoneNumberId, accessToken, parsed.senderPhone, account.welcome_message);
+    }
+
     const reply = await generateText(
       provider,
       agent.system_prompt || `Eres ${agent.name}. ${agent.description || ''}`.trim(),
-      parsed.messageText
+      parsed.messageText,
+      { history }
     );
 
     if (!reply) return;

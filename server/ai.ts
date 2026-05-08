@@ -30,9 +30,10 @@ export async function generateText(
   provider: ProviderRow,
   systemPrompt: string,
   userMessage: string,
-  options: { maxTokens?: number } = {}
+  options: { maxTokens?: number; history?: { role: 'user' | 'assistant'; text: string }[] } = {}
 ): Promise<string> {
   const maxTokens = options.maxTokens ?? 1024;
+  const history = options.history || [];
 
   switch (provider.provider as ProviderKind) {
     case 'anthropic': {
@@ -41,7 +42,10 @@ export async function generateText(
         model: provider.model,
         max_tokens: maxTokens,
         system: systemPrompt,
-        messages: [{ role: 'user', content: userMessage }],
+        messages: [
+          ...history.map((h) => ({ role: h.role, content: h.text })),
+          { role: 'user', content: userMessage },
+        ],
       });
       const textBlock = res.content.find((b) => b.type === 'text');
       return textBlock && 'text' in textBlock ? textBlock.text : '';
@@ -51,7 +55,13 @@ export async function generateText(
       const client = new GoogleGenAI({ apiKey: provider.api_key });
       const res = await client.models.generateContent({
         model: provider.model,
-        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+        contents: [
+          ...history.map((h) => ({
+            role: h.role === 'user' ? 'user' : 'model',
+            parts: [{ text: h.text }],
+          })),
+          { role: 'user', parts: [{ text: userMessage }] },
+        ],
         config: { systemInstruction: systemPrompt, maxOutputTokens: maxTokens },
       });
       return res.text ?? '';
@@ -69,6 +79,10 @@ export async function generateText(
         max_tokens: maxTokens,
         messages: [
           { role: 'system', content: systemPrompt },
+          ...history.map((h) => ({
+            role: h.role as 'user' | 'assistant',
+            content: h.text,
+          })),
           { role: 'user', content: userMessage },
         ],
       });
