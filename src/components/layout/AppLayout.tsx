@@ -29,6 +29,16 @@ const NAV_ITEMS = [
   { name: "Configuración", path: "/settings", icon: Settings },
 ];
 
+function getInitials(name?: string) {
+  return (name || 'Usuario')
+    .split(' ')
+    .map((p) => p[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() || 'US';
+}
+
 export function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -36,13 +46,7 @@ export function AppLayout() {
   const location = useLocation();
   const { user, logout } = useAuth();
 
-  const initials = (user?.name || 'Usuario')
-    .split(' ')
-    .map((p) => p[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join('')
-    .toUpperCase() || 'US';
+  const initials = getInitials(user?.name);
 
   useEffect(() => {
     // Check local storage or default to dark
@@ -94,8 +98,10 @@ export function AppLayout() {
 
       {/* Mobile Sidebar Backdrop */}
       {sidebarOpen && (
-        <div 
-          className="md:hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40" 
+        <button
+          type="button"
+          aria-label="Cerrar menú"
+          className="md:hidden fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 w-full h-full border-none cursor-default" 
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -204,13 +210,6 @@ export function AppLayout() {
         </div>
       </aside>
 
-      {/* Mobile backdrop */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 md:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
 
       {/* Main content */}
       <main className="flex-1 overflow-auto w-full relative z-10 styled-scrollbar">
@@ -223,7 +222,7 @@ export function AppLayout() {
               <>
                 <ChevronRight className="w-4 h-4" />
                 <span className="text-slate-300 font-medium">
-                  {PATH_MAP[location.pathname] || location.pathname.split("/").filter(Boolean).pop()}
+                  {PATH_MAP[location.pathname] || location.pathname.split("/").findLast(Boolean)}
                 </span>
               </>
             )}
