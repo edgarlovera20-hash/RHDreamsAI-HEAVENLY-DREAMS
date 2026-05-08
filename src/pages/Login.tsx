@@ -49,7 +49,7 @@ export function Login() {
     }
   }
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
@@ -91,6 +91,21 @@ export function Login() {
 
   const showRegister = mode === 'register';
 
+  let titleSubtitle = 'Iniciar sesión';
+  let buttonText = 'Iniciar sesión';
+  let ButtonIcon = LogIn;
+
+  if (showRegister) {
+    if (needsBootstrap) {
+      titleSubtitle = 'Crea la cuenta admin';
+      buttonText = 'Crear admin y entrar';
+    } else {
+      titleSubtitle = 'Crear cuenta nueva';
+      buttonText = 'Crear cuenta';
+    }
+    ButtonIcon = UserPlus;
+  }
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-4">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -107,7 +122,7 @@ export function Login() {
           <div className="text-center">
             <h1 className="text-2xl font-bold text-white tracking-tight">RH<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">Dreams</span></h1>
             <p className="text-[10px] text-blue-400/80 uppercase tracking-[0.25em] font-bold mb-1">Heavenly Dreams</p>
-            <p className="text-xs text-slate-400">{showRegister ? (needsBootstrap ? 'Crea la cuenta admin' : 'Crear cuenta nueva') : 'Iniciar sesión'}</p>
+            <p className="text-xs text-slate-400">{titleSubtitle}</p>
           </div>
         </div>
 
@@ -120,10 +135,11 @@ export function Login() {
 
         <form onSubmit={submit} className="space-y-4">
           <div>
-            <label className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">
+            <label htmlFor="login-email" className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">
               {showRegister ? 'Email' : 'Email o usuario'}
             </label>
             <input
+              id="login-email"
               type={showRegister ? 'email' : 'text'}
               name="username"
               value={email}
@@ -138,8 +154,9 @@ export function Login() {
 
           {showRegister && (
             <div>
-              <label className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">Nombre</label>
+              <label htmlFor="login-name" className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">Nombre</label>
               <input
+                id="login-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -152,9 +169,10 @@ export function Login() {
           )}
 
           <div>
-            <label className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">Contraseña</label>
+            <label htmlFor="login-password" className="text-xs text-slate-400 mb-1.5 block uppercase tracking-wider font-medium">Contraseña</label>
             <div className="relative">
               <input
+                id="login-password"
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={password}
@@ -178,24 +196,30 @@ export function Login() {
 
           {/* Remember-me row */}
           <div className="flex items-center justify-between gap-3 text-xs">
-            <label className="flex items-center gap-2 text-slate-300 cursor-pointer select-none">
+            <div className="flex items-center gap-2">
               <input
+                id="login-remember"
                 type="checkbox"
                 checked={rememberEmail}
                 onChange={(e) => setRememberEmail(e.target.checked)}
                 className="accent-blue-500 cursor-pointer"
               />
-              Recordar usuario
-            </label>
-            <label className="flex items-center gap-2 text-slate-300 cursor-pointer select-none">
+              <label htmlFor="login-remember" className="text-slate-300 cursor-pointer select-none">
+                Recordar usuario
+              </label>
+            </div>
+            <div className="flex items-center gap-2">
               <input
+                id="login-keep"
                 type="checkbox"
                 checked={keepSession}
                 onChange={(e) => setKeepSession(e.target.checked)}
                 className="accent-blue-500 cursor-pointer"
               />
-              Mantener sesión iniciada
-            </label>
+              <label htmlFor="login-keep" className="text-slate-300 cursor-pointer select-none">
+                Mantener sesión iniciada
+              </label>
+            </div>
           </div>
 
           {error && (
@@ -210,8 +234,8 @@ export function Login() {
             disabled={submitting || biometricBusy}
             className="cta w-full bg-blue-500 hover:bg-blue-600 text-slate-900 font-semibold py-2.5 rounded-xl text-sm transition-all shadow-[0_0_20px_rgba(96,165,250,0.25)] disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : showRegister ? <UserPlus className="w-4 h-4" /> : <LogIn className="w-4 h-4" />}
-            {showRegister ? (needsBootstrap ? 'Crear admin y entrar' : 'Crear cuenta') : 'Iniciar sesión'}
+            {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <ButtonIcon className="w-4 h-4" />}
+            {buttonText}
           </button>
         </form>
 
